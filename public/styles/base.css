@@ -1,0 +1,14 @@
+* { 
+    box-sizing: border-box;
+    width: 100%;
+}
+
+div {
+    border: solid gray 1px;
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
