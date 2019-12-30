@@ -9,7 +9,23 @@
 <body>
 
   <main>
-    <input type="text" placeholder="Search...">
+    <form action="/" method="POST">
+      <input type="text" name="search" placeholder="Search..." value="search">
+      <input type="submit" value="Search" id="button">
+    </form>
+
+<% companyData.forEach(data=> { %>
+
+  <%=data.name%>
+  <%=data.symbol%>
+  <%=data.price%>
+  <%=data.sector%>
+  <%=data.beta%>
+  <%=data.description%>
+  <%=data.image%>
+
+<% }) %>
+   
   </main>
   
 </body>
