@@ -48,7 +48,7 @@ function newSearch(request, response){
       console.log('what', parseResultProfile)
       let company = new Company(parseResultProfile)
       console.log('this 3', company)
-      // console.log('this 4', companyData)
+      console.log('this 4', company)
       response.render('searches/show', {company});
     })
     .catch(err => console.log(err));
