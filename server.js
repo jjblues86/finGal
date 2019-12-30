@@ -13,16 +13,18 @@ app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.set('views', './views/pages');
 
-app.get('/', (request, response) => {
-  response.render('index');
-});
+// app.get('/', (request, response) => {
+//   response.render('index');
+// });
 
 //Routes
 app.get('/', search);
-app.post('/', newSearch);
+app.post('/searches', newSearch);
 
 
-function search(request, response){
+function newSearch(request, response){
+  // console.log('this', request.body)
+  // response.render('index.ejs')
 
   let searchStr = request.body.search;
   let searchType = request.body.search;
@@ -32,30 +34,39 @@ function search(request, response){
   if(searchType === 'search'){
     companyURL += `insearch:${searchStr}`
   }
-  console.log('this', searchType)
+  console.log('this 1', searchType)
 
   superagent.get(companyURL)
     .then(result => {
-      let companyData = result.body.profile.map(data => new Company(data))
-      console.log('this', companyData)
-      response.render('pages/index', {companyData});
+      // console.log('this', result)
+      const parseResult = JSON.parse(result.text);
+      console.log('this 2', parseResult.profile)
+
+
+      // let companyData = parseResult.body.map(data => new Company(data))
+      let parseResultProfile = parseResult.profile;
+      console.log('what', parseResultProfile)
+      let company = new Company(parseResultProfile)
+      console.log('this 3', company)
+      console.log('this 4', company)
+      response.render('searches/show', {company});
     })
-    .catch(err => errorHandler(err));
+    .catch(err => console.log(err));
 }
 
-function newSearch(request, response){
+function search(request, response){
   response.render('index')
 }
 
 //Constructor
 function Company(obj){
-  this.name = obj.profile.companyName;
+  this.name = obj.companyName;
   this.symbol = obj.symbol;
-  this.price = obj.profile.price;
-  this.sector = obj.profile.sector;
-  this.beta = obj.profile.beta;
-  this.description = obj.profile.description;
-  this.image = obj.profile.image;
+  this.price = obj.price;
+  this.sector = obj.sector;
+  this.beta = obj.beta;
+  this.description = obj.description;
+  this.image = obj.image;
 }
 
 function errorHandler(request, response){
