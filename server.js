@@ -25,24 +25,21 @@ function search(request, response){
   response.render('index')
 }
 
-  let searchStr = request.body.search;
-  // let searchType = request.body.search;
-
 function newSearch(request, response){
 
+  // let searchType = request.body.search;
   let searchStr = request.body.search[0];
   let searchType = request.body.search[1];
   let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
- 
+
   if(searchType === 'company'){
     let companySearch = searchAlpha(searchStr);
     companySearch.then( result => {
       // console.log('this 0', result)
       companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
-
       superagent.get(companyURL)
         .then(resultData => {
-          
+
           // console.log('this 0', resultData)
           const parseResult = JSON.parse(resultData.text);
           // console.log('this 2', parseResult)
@@ -53,45 +50,15 @@ function newSearch(request, response){
           response.render('searches/show', {company});
         })
         .catch(err => console.log(err));
-    })
-}
 
-// console.log('x', x);
-
-
-// if (searchType === 'search') {
-//   companyURL += `insearch:${searchStr}`
-// }
-// console.log('this 1', searchType)
-
-
-function search(request, response) {
-  response.render('index')
-}
-
-app.get('/results', (request, response) => {
-  console.log(mockData.symbol, mockData.profile.price)
-  response.render('results');
-})
-
-//Constructor
-function Company(obj) {
-  this.name = obj.companyName;
-  this.symbol = obj.symbol;
-  this.price = obj.price;
-  this.sector = obj.sector;
-  this.ceo = obj.ceo;
-  this.description = obj.description;
-  this.image = obj.image;
-}
     })
   }
   // console.log('this 1', searchType)
-  
+
   console.log('BACON',companyURL);
   superagent.get(companyURL)
     .then(resultData => {
-      
+
       // console.log('this 0', resultData)
       const parseResult = JSON.parse(resultData.text);
       // console.log('this 2', parseResult)
@@ -105,7 +72,6 @@ function Company(obj) {
   //////////////
 }
 /////////////////
-
 
 // logic to pull sticker information from the company name to send to the main API
 function searchAlpha(userKey){
@@ -162,6 +128,8 @@ function Book(bookObj) {
   this.link = bookObj.volumeInfo.previewLink;
 }
 
-
+function errorHandler(request, response){
+  if(response) response.status(500).render('error');
+}
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
