@@ -7,6 +7,9 @@ const PORT = process.env.PORT || 3000;
 
 require('dotenv').config();
 
+
+app.use(express.static('./public'));
+
 //Middleware
 app.use(express.urlencoded({extended: true}));
 
@@ -57,6 +60,11 @@ function newSearch(request, response){
 function search(request, response){
   response.render('index')
 }
+
+app.get('/results', (request, response) => {
+  console.log(mockData.symbol, mockData.profile.price)
+  response.render('results');
+})
 
 //Constructor
 function Company(obj){
