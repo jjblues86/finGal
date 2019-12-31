@@ -116,7 +116,8 @@ function searchAlpha(userKey){
 app.get('/books', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
     const booksArray = data.body.items.map(book => new Book(book));
-    res.render('books', { booksArray });
+    const books= booksArray.slice(0, 3);
+    res.render('books', { books });
   }).catch(error => {
     res.render('error', { error });
   });
