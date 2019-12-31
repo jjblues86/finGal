@@ -7,11 +7,10 @@ const PORT = process.env.PORT || 3000;
 
 require('dotenv').config();
 
-
 app.use(express.static('./public'));
 
 //Middleware
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', './views/pages');
@@ -24,19 +23,27 @@ app.set('views', './views/pages');
 app.get('/', search);
 app.post('/searches', newSearch);
 
+// let searchStr = request.body.search;
 
-function newSearch(request, response){
+// console.log('search field', searchStr);
+
+function newSearch(request, response) {
   // console.log('this', request.body)
   // response.render('index.ejs')
 
   let searchStr = request.body.search;
   let searchType = request.body.search;
+
+console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>searchStr', searchStr);
+
+
+
   let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/AAPL`;
 
 
-  if(searchType === 'search'){
-    companyURL += `insearch:${searchStr}`
-  }
+  // if (searchType === 'search') {
+  //   companyURL += `insearch:${searchStr}`
+  // }
   console.log('this 1', searchType)
 
   superagent.get(companyURL)
@@ -52,12 +59,12 @@ function newSearch(request, response){
       let company = new Company(parseResultProfile)
       console.log('this 3', company)
       console.log('this 4', company)
-      response.render('searches/show', {company});
+      response.render('searches/show', { company });
     })
     .catch(err => console.log(err));
 }
 
-function search(request, response){
+function search(request, response) {
   response.render('index')
 }
 
@@ -67,7 +74,7 @@ app.get('/results', (request, response) => {
 })
 
 //Constructor
-function Company(obj){
+function Company(obj) {
   this.name = obj.companyName;
   this.symbol = obj.symbol;
   this.price = obj.price;
@@ -77,8 +84,29 @@ function Company(obj){
   this.image = obj.image;
 }
 
-function errorHandler(request, response){
-  if(response) response.status(500).render('error');
-}
+// logic to pull sticker information from the company name to send to the main API
+const userKey = 'facebook';
+
+superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=7R6ONK4007JF3LU7`).then(response => {
+
+  let stickerObject = response.body.bestMatches[0];
+
+  let symbolShare = stickerObject['1. symbol'];
+
+  let nameShare = stickerObject['2. name'];
+  console.log('data to parse to next API', symbolShare, nameShare);
+
+
+})
+
+  .catch(error => {
+    console.error('catch on it ', error)
+  })
+
+
+
+
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
