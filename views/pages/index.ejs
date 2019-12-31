@@ -10,8 +10,12 @@
 
   <main>
     <form action="/searches" method="POST">
-      <input type="text" name="search" placeholder="Search..." value="search">
-      <input type="submit" value="Search" id="button">
+      <input type="text" name="search" placeholder="Search by Company name or Symbol">
+      <select name="search" required>
+        <option value="company">Company</option>
+        <option value="symbol">Symbol</option>
+      </select>
+      <button type="submit" value="Search">Search</button>
     </form>
   </main>
   

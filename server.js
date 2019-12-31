@@ -7,52 +7,50 @@ const PORT = process.env.PORT || 3000;
 
 require('dotenv').config();
 
+
 app.use(express.static('./public'));
 
 //Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 app.set('views', './views/pages');
-
-// app.get('/', (request, response) => {
-//   response.render('index');
-// });
 
 //Routes
 app.get('/', search);
 app.post('/searches', newSearch);
 
-// let searchStr = request.body.search;
 
-// console.log('search field', searchStr);
-
-function newSearch(request, response) {
-  // console.log('this', request.body)
-  // response.render('index.ejs')
+function search(request, response){
+  response.render('index')
+}
 
   let searchStr = request.body.search;
   // let searchType = request.body.search;
 
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>searchStr', searchStr);
-  searchAlpha(searchStr)
-    .then(result =>{
-      console.log('this 12', result)
-      let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
+function newSearch(request, response){
+
+  let searchStr = request.body.search[0];
+  let searchType = request.body.search[1];
+  let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
+ 
+  if(searchType === 'company'){
+    let companySearch = searchAlpha(searchStr);
+    companySearch.then( result => {
+      // console.log('this 0', result)
+      companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
+
       superagent.get(companyURL)
-        .then(result => {
-          // console.log('this', result)
-          const parseResult = JSON.parse(result.text);
-          console.log('this 2', parseResult.profile)
-
-
-          // let companyData = parseResult.body.map(data => new Company(data))
+        .then(resultData => {
+          
+          // console.log('this 0', resultData)
+          const parseResult = JSON.parse(resultData.text);
+          // console.log('this 2', parseResult)
           let parseResultProfile = parseResult.profile;
-          console.log('what', parseResultProfile)
           let company = new Company(parseResultProfile)
-          console.log('this 3', company)
-          console.log('this 4', company)
-          response.render('searches/show', { company });
+          // console.log('this 3', company)
+          // console.log('this 4', company)
+          response.render('searches/show', {company});
         })
         .catch(err => console.log(err));
     })
@@ -86,12 +84,30 @@ function Company(obj) {
   this.description = obj.description;
   this.image = obj.image;
 }
-
-
+    })
+  }
+  // console.log('this 1', searchType)
+  
+  console.log('BACON',companyURL);
+  superagent.get(companyURL)
+    .then(resultData => {
+      
+      // console.log('this 0', resultData)
+      const parseResult = JSON.parse(resultData.text);
+      // console.log('this 2', parseResult)
+      let parseResultProfile = parseResult.profile;
+      let company = new Company(parseResultProfile)
+      // console.log('this 3', company)
+      // console.log('this 4', company)
+      response.render('searches/show', {company});
+    })
+    .catch(err => console.log(err));
+  //////////////
+}
+/////////////////
 
 
 // logic to pull sticker information from the company name to send to the main API
-
 function searchAlpha(userKey){
 
   return superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=7R6ONK4007JF3LU7`).then(response => {
@@ -106,10 +122,26 @@ function searchAlpha(userKey){
     return symbolShare;
 
   })
-
     .catch(error => {
       console.error('catch on it ', error)
     })
+
+}
+
+
+// app.get('/results', (request, response) => {
+//   response.render('results');
+// })
+
+//Constructor
+function Company(obj){
+  this.name = obj.companyName;
+  this.symbol = obj.symbol;
+  this.price = obj.price;
+  this.sector = obj.sector;
+  this.ceo = obj.ceo;
+  this.description = obj.description;
+  this.image = obj.image;
 }
 
 // x.items[0].volumeInfo.title
