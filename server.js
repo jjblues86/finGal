@@ -87,6 +87,9 @@ function Company(obj) {
   this.image = obj.image;
 }
 
+
+
+
 // logic to pull sticker information from the company name to send to the main API
 
 function searchAlpha(userKey){
@@ -109,9 +112,22 @@ function searchAlpha(userKey){
     })
 }
 
+// x.items[0].volumeInfo.title
+app.get('/books', (req, res) => {
+  superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
+    const booksArray = data.body.items.map(book => new Book(book));
+    res.render('books', { booksArray });
+  }).catch(error => {
+    res.render('error', { error });
+  });
+});
 
-
-
+function Book(bookObj) {
+  this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
+  this.title = bookObj.volumeInfo.title;
+  this.authors = bookObj.volumeInfo.authors;
+  this.link = bookObj.volumeInfo.previewLink;
+}
 
 
 
