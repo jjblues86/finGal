@@ -3,10 +3,9 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 require('dotenv').config();
-
 
 app.use(express.static('./public'));
 
@@ -79,5 +78,28 @@ function Company(obj){
 function errorHandler(request, response){
   if(response) response.status(500).render('error');
 }
+
+////mock data rendering////
+const fakeDatabase ={
+  'Company': {
+    symbol: 'AAPL',
+    price: '291.45',
+    beta: '1.139593',
+    companyName: 'Apple Inc.',
+    industry: 'Computer Hardware',
+    website: 'http://www.apple.com',
+    description: 'Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.',
+    sector: 'Technology',
+    image: 'https://financialmodelingprep.com/images-New-jpg/AAPL.jpg'
+  }
+};
+
+app.get('/results', (request, response) => {
+  console.log('running app.get/results');
+  // const company=Object.keys(fakeDatabase);
+  response.send('working');
+});
+///////end of mock data/////
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
