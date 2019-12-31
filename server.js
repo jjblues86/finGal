@@ -62,7 +62,6 @@ function search(request, response){
 }
 
 app.get('/results', (request, response) => {
-  console.log(mockData.symbol, mockData.profile.price)
   response.render('results');
 })
 
