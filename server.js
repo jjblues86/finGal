@@ -25,6 +25,9 @@ function search(request, response){
   response.render('index')
 }
 
+  let searchStr = request.body.search;
+  // let searchType = request.body.search;
+
 function newSearch(request, response){
 
   let searchStr = request.body.search[0];
@@ -50,7 +53,37 @@ function newSearch(request, response){
           response.render('searches/show', {company});
         })
         .catch(err => console.log(err));
+    })
+}
 
+// console.log('x', x);
+
+
+// if (searchType === 'search') {
+//   companyURL += `insearch:${searchStr}`
+// }
+// console.log('this 1', searchType)
+
+
+function search(request, response) {
+  response.render('index')
+}
+
+app.get('/results', (request, response) => {
+  console.log(mockData.symbol, mockData.profile.price)
+  response.render('results');
+})
+
+//Constructor
+function Company(obj) {
+  this.name = obj.companyName;
+  this.symbol = obj.symbol;
+  this.price = obj.price;
+  this.sector = obj.sector;
+  this.ceo = obj.ceo;
+  this.description = obj.description;
+  this.image = obj.image;
+}
     })
   }
   // console.log('this 1', searchType)
@@ -72,6 +105,7 @@ function newSearch(request, response){
   //////////////
 }
 /////////////////
+
 
 // logic to pull sticker information from the company name to send to the main API
 function searchAlpha(userKey){
@@ -110,8 +144,24 @@ function Company(obj){
   this.image = obj.image;
 }
 
-function errorHandler(request, response){
-  if(response) response.status(500).render('error');
+// x.items[0].volumeInfo.title
+app.get('/books', (req, res) => {
+  superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
+    const booksArray = data.body.items.map(book => new Book(book));
+    const books= booksArray.slice(0, 3);
+    res.render('books', { books });
+  }).catch(error => {
+    res.render('error', { error });
+  });
+});
+
+function Book(bookObj) {
+  this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
+  this.title = bookObj.volumeInfo.title;
+  this.authors = bookObj.volumeInfo.authors;
+  this.link = bookObj.volumeInfo.previewLink;
 }
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
