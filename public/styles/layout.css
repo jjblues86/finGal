@@ -17,11 +17,12 @@ header {
 nav {
     margin-left: 15px;
 }
+
 ul#nav-bar li {
     display:inline;
     margin-right: 50px;
 
-  }
+}
 
 a {
     text-decoration: none;
