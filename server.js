@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3001;
 
 require('dotenv').config();
 
+
 app.use(express.static('./public'));
 
 //Middleware
@@ -18,58 +19,60 @@ app.set('views', './views/pages')
 app.get('/', search);
 app.post('/results', newSearch);
 
-// let searchStr = request.body.search;
 
-// console.log('search field', searchStr);
-
-function newSearch(request, response) {
-  let searchStr = request.body.search;
-  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>searchStr', searchStr);
-  searchAlpha(searchStr)
-    .then(result =>{
-      console.log('this 12', result)
-      let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
-      superagent.get(companyURL)
-        .then(result => {
-          // console.log('this', result)
-          const parseResult = JSON.parse(result.text);
-          console.log('this 2', parseResult.profile)
-
-          // let companyData = parseResult.body.map(data => new Company(data))
-          let parseResultProfile = parseResult.profile;
-          console.log('what', parseResultProfile)
-          let company = new Company(parseResultProfile)
-          console.log('this 3', company)
-          console.log('this 4', company)
-          response.render('results', { company });
-        })
-        .catch(err => console.log(err));
-    })
-}
-
-
-
-function search(request, response) {
+function search(request, response){
   response.render('index')
 }
 
-app.get('/results', (request, response) => {
-  response.render('results');
-})
+function newSearch(request, response){
 
-//Constructor
-function Company(obj) {
-  this.name = obj.companyName;
-  this.symbol = obj.symbol;
-  this.price = obj.price;
-  this.sector = obj.sector;
-  this.ceo = obj.ceo;
-  this.description = obj.description;
-  this.image = obj.image;
+  // let searchType = request.body.search;
+  let searchStr = request.body.search[0];
+  let searchType = request.body.search[1];
+  let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
+
+  if(searchType === 'company'){
+    let companySearch = searchAlpha(searchStr);
+    companySearch.then( result => {
+      // console.log('this 0', result)
+      companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
+      superagent.get(companyURL)
+        .then(resultData => {
+
+          // console.log('this 0', resultData)
+          const parseResult = JSON.parse(resultData.text);
+          // console.log('this 2', parseResult)
+          let parseResultProfile = parseResult.profile;
+          let company = new Company(parseResultProfile)
+          // console.log('this 3', company)
+          // console.log('this 4', company)
+          response.render('searches/show', {company});
+        })
+        .catch(err => console.log(err));
+
+    })
+  }
+  // console.log('this 1', searchType)
+
+  console.log('BACON',companyURL);
+  superagent.get(companyURL)
+    .then(resultData => {
+
+      // console.log('this 0', resultData)
+      const parseResult = JSON.parse(resultData.text);
+      // console.log('this 2', parseResult)
+      let parseResultProfile = parseResult.profile;
+      let company = new Company(parseResultProfile)
+      // console.log('this 3', company)
+      // console.log('this 4', company)
+      response.render('searches/show', {company});
+    })
+    .catch(err => console.log(err));
+  //////////////
 }
+/////////////////
 
 // logic to pull sticker information from the company name to send to the main API
-
 function searchAlpha(userKey){
 
   return superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=7R6ONK4007JF3LU7`).then(response => {
@@ -84,11 +87,9 @@ function searchAlpha(userKey){
     return symbolShare;
 
   })
-
     .catch(error => {
       console.error('catch on it ', error)
     })
-}
 
 ////mock data rendering////
 const fakeDatabase ={
@@ -111,6 +112,45 @@ app.get('/results', (request, response) => {
   response.send('working');
 });
 ///////end of mock data/////
+}
 
+
+// app.get('/results', (request, response) => {
+//   response.render('results');
+// })
+
+//Constructor
+function Company(obj){
+  this.name = obj.companyName;
+  this.symbol = obj.symbol;
+  this.price = obj.price;
+  this.sector = obj.sector;
+  this.ceo = obj.ceo;
+  this.description = obj.description;
+  this.image = obj.image;
+}
+
+// x.items[0].volumeInfo.title
+app.get('/books', (req, res) => {
+  superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
+    const booksArray = data.body.items.map(book => new Book(book));
+    const books= booksArray.slice(0, 3);
+    res.render('books', { books });
+  }).catch(error => {
+    res.render('error', { error });
+  });
+});
+
+function Book(bookObj) {
+  this.image_url = bookObj.volumeInfo.imageLinks && bookObj.volumeInfo.imageLinks.thumbnail;
+  this.title = bookObj.volumeInfo.title;
+  this.authors = bookObj.volumeInfo.authors;
+  this.link = bookObj.volumeInfo.previewLink;
+}
+
+
+function errorHandler(request, response){
+  if(response) response.status(500).render('error');
+}
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

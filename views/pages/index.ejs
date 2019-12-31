@@ -35,9 +35,15 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa facere.</p>
             
           </section>
-
-
-
+          
+              <form action="/searches" method="POST">
+      <input type="text" name="search" placeholder="Search by Company name or Symbol">
+      <select name="search" required>
+        <option value="company">Company</option>
+        <option value="symbol">Symbol</option>
+      </select>
+      <button type="submit" value="Search">Search</button>
+    </form>
 
       </main>
       
@@ -45,10 +51,7 @@
         <%- include('../layout/footer') %>
       </div>
 
-  
-
-
-
+ 
       </section>
 
 </body>
