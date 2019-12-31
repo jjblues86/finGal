@@ -5,9 +5,25 @@
 <body>
     <div class="container">
         <%- include('../layout/header') %>
+        <aside>
+
+        </aside>
         <main>
+            <section id="search-result">
+            <img id="company-image" src=<%= company.image %>>
+            <h2><%=company.name%></h2>
+            <h2><%=company.symbol%></h2>
+            <h2><%=company.price%></h2>
+            <h3><%=company.ceo%></h3>
+            <p><%=company.sector%></p>
+            <p><%=company.description%></p> 
+        </section>
             
+        <form action="">
+            <input type="submit" value="Add to Portfolio" id="add-button">
+        </form>
         </main>
+      
         <%- include('../layout/footer') %>
     </div>
 </body>

@@ -11,29 +11,19 @@ app.use(express.static('./public'));
 
 //Middleware
 app.use(express.urlencoded({ extended: true }));
-
 app.set('view engine', 'ejs');
-app.set('views', './views/pages');
-
-// app.get('/', (request, response) => {
-//   response.render('index');
-// });
+app.set('views', './views/pages')
 
 //Routes
 app.get('/', search);
-app.post('/searches', newSearch);
+app.post('/results', newSearch);
 
 // let searchStr = request.body.search;
 
 // console.log('search field', searchStr);
 
 function newSearch(request, response) {
-  // console.log('this', request.body)
-  // response.render('index.ejs')
-
   let searchStr = request.body.search;
-  // let searchType = request.body.search;
-
   console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>searchStr', searchStr);
   searchAlpha(searchStr)
     .then(result =>{
@@ -45,26 +35,18 @@ function newSearch(request, response) {
           const parseResult = JSON.parse(result.text);
           console.log('this 2', parseResult.profile)
 
-
           // let companyData = parseResult.body.map(data => new Company(data))
           let parseResultProfile = parseResult.profile;
           console.log('what', parseResultProfile)
           let company = new Company(parseResultProfile)
           console.log('this 3', company)
           console.log('this 4', company)
-          response.render('searches/show', { company });
+          response.render('results', { company });
         })
         .catch(err => console.log(err));
     })
 }
 
-// console.log('x', x);
-
-
-// if (searchType === 'search') {
-//   companyURL += `insearch:${searchStr}`
-// }
-// console.log('this 1', searchType)
 
 
 function search(request, response) {
@@ -107,11 +89,5 @@ function searchAlpha(userKey){
       console.error('catch on it ', error)
     })
 }
-
-
-
-
-
-
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

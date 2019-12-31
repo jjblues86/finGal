@@ -15,13 +15,15 @@ header {
     margin: 15px 15px;
     color: white;
     display: inline;
-
 }
 
 nav #nav-bar  {
     margin: 30px -80px;
 }
-
+#company-image {
+    max-width: 250px;
+    max-height: 250px;
+}
 ul#nav-bar li {
     display:inline;
     margin-right: 50px;
@@ -33,7 +35,6 @@ a {
     font-size: 1.5em;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-
 
 footer {
     background-color: rgb(211, 200, 200);
