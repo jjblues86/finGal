@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 require('dotenv').config();
 
@@ -11,14 +11,13 @@ require('dotenv').config();
 app.use(express.static('./public'));
 
 //Middleware
-app.use(express.urlencoded({extended: true}));
-
+app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.set('views', './views/pages');
+app.set('views', './views/pages')
 
 //Routes
 app.get('/', search);
-app.post('/searches', newSearch);
+app.post('/results', newSearch);
 
 
 function search(request, response){
@@ -92,6 +91,27 @@ function searchAlpha(userKey){
       console.error('catch on it ', error)
     })
 
+////mock data rendering////
+const fakeDatabase ={
+  'Company': {
+    symbol: 'AAPL',
+    price: '291.45',
+    beta: '1.139593',
+    companyName: 'Apple Inc.',
+    industry: 'Computer Hardware',
+    website: 'http://www.apple.com',
+    description: 'Apple Inc is designs, manufactures and markets mobile communication and media devices and personal computers, and sells a variety of related software, services, accessories, networking solutions and third-party digital content and applications.',
+    sector: 'Technology',
+    image: 'https://financialmodelingprep.com/images-New-jpg/AAPL.jpg'
+  }
+};
+
+app.get('/results', (request, response) => {
+  console.log('running app.get/results');
+  // const company=Object.keys(fakeDatabase);
+  response.send('working');
+});
+///////end of mock data/////
 }
 
 
@@ -127,6 +147,7 @@ function Book(bookObj) {
   this.authors = bookObj.volumeInfo.authors;
   this.link = bookObj.volumeInfo.previewLink;
 }
+
 
 function errorHandler(request, response){
   if(response) response.status(500).render('error');

@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
+<%- include('../layout/head') %>
 
-  <main>
-    <form action="/searches" method="POST">
+<body>
+  <div class="container">
+    <%- include('../layout/header') %>
+
+      <main>
+
+        <section id="about-us">
+          <h2>About Us</h2>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum, ad, aut incidunt delectus nam cumque cum voluptates, culpa quos reprehenderit assumenda labore! Consectetur excepturi similique, iste laudantium eum eos aliquid?</p>
+          </section>
+
+          <section id="search-company">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque, consequatur rerum beatae! Commodi nulla saepe possimus ipsam.</p>
+
+            <form action="/results" method="POST">
+              <input type="text" name="search" placeholder="Search..." value="search">
+              <input type="submit" value="Search" id="button">
+            </form>
+          </section>
+          
+
+          <section id="more-resources">
+
+
+          </section>          
+          <section id="plan-ahead">
+          </section>
+
+
+          <section id="creators">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa facere.</p>
+            
+          </section>
+          
+              <form action="/searches" method="POST">
       <input type="text" name="search" placeholder="Search by Company name or Symbol">
       <select name="search" required>
         <option value="company">Company</option>
@@ -17,7 +44,16 @@
       </select>
       <button type="submit" value="Search">Search</button>
     </form>
-  </main>
-  
+
+      </main>
+      
+
+        <%- include('../layout/footer') %>
+      </div>
+
+ 
+      </section>
+
 </body>
+
 </html>
