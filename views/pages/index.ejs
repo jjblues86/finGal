@@ -17,8 +17,12 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque, consequatur rerum beatae! Commodi nulla saepe possimus ipsam.</p>
 
             <form action="/results" method="POST">
-              <input type="text" name="search" placeholder="Search..." value="search">
-              <input type="submit" value="Search" id="button">
+              <input type="text" name="search" placeholder="Search by Company name or Symbol">
+              <select name="search" required>
+                <option value="company">Company</option>
+                <option value="symbol">Symbol</option>
+              </select>
+              <button type="submit" value="Search">Search</button>
             </form>
           </section>
           
@@ -35,33 +39,14 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa facere.</p>
             
           </section>
-
-
-
+          
+             
 
       </main>
       
 
         <%- include('../layout/footer') %>
       </div>
-
-<<<<<<< HEAD
-=======
-  <main>
-    <form action="/searches" method="POST">
-      <input type="text" name="search" placeholder="Search by Company name or Symbol">
-      <select name="search" required>
-        <option value="company">Company</option>
-        <option value="symbol">Symbol</option>
-      </select>
-      <button type="submit" value="Search">Search</button>
-    </form>
-  </main>
->>>>>>> f65802271dbe07242aea45a40aeac90dd5df6efd
-  
-
-
-
       </section>
 
 </body>
