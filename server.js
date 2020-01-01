@@ -21,10 +21,9 @@ app.post('/results', newSearch);
 
 
 
-function search(request, response){
+function search(request, response) {
   response.render('index')
 }
-
 
 //Search functionality for users to choose from company name/symbol
 function newSearch(request, response){
@@ -33,9 +32,10 @@ function newSearch(request, response){
   let searchType = request.body.search[1];
   let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
 
-  if(searchType === 'company'){
+  if (searchType === 'company') {
     let companySearch = searchAlpha(searchStr);
     companySearch.then( result => {
+
       companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
       superagent.get(companyURL)
         .then(resultData => {
@@ -43,19 +43,22 @@ function newSearch(request, response){
           const parseResult = JSON.parse(resultData.text);
           let parseResultProfile = parseResult.profile;
           let company = new Company(parseResultProfile)
+
           response.render('results', {company});
+
         })
         .catch(err => console.log(err));
     })
   }
 
-  console.log('BACON',companyURL);
+  console.log('BACON', companyURL);
   superagent.get(companyURL)
     .then(resultData => {
 
       const parseResult = JSON.parse(resultData.text);
       let parseResultProfile = parseResult.profile;
       let company = new Company(parseResultProfile)
+
       response.render('results', {company});
     })
     .catch(err => console.log(err));
@@ -104,6 +107,36 @@ function Company(obj){
   this.image = obj.image;
 }
 
+app.get('/books', (req, res) => {
+  superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
+    const booksArray = data.body.items.map(book => new Book(book));
+    const books = booksArray.slice(0, 3);
+    res.render('books', { books });
+  }).catch(error => {
+    res.render('error', { error });
+  });
+});
+
+app.get('/event', (req, res) => {
+  console.log('data')
+  superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=5DsQwPWqNz4zHmtM`).then(data => {
+
+  let parsedData= JSON.parse(data.text);
+
+    // let events = data.events.event[0].title;
+    // console.log('data afetr data', JSON.parse(data.text))
+    const eventsArray = parsedData.events.event.map(event => new Event(event));
+    const events = eventsArray.slice(0, 3);
+    // console.log('event', events)
+    res.render('event', { events });
+
+
+  }).catch(error => {
+    console.log(error)
+    res.render('error', { error });
+  });
+});
+
 
 //Book Constructor
 function Book(bookObj) {
@@ -113,9 +146,18 @@ function Book(bookObj) {
   this.link = bookObj.volumeInfo.previewLink;
 }
 
+//event constructor
+function Event(eventObj) {
+  this.title = eventObj.title,
+  this.city = eventObj.city_name,
+  this.start_time = eventObj.start_time
+
+}
+
 
 function errorHandler(request, response){
   if(response) response.status(500).render('error');
+
 }
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
