@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 require('dotenv').config();
 
@@ -84,16 +84,16 @@ function searchAlpha(userKey){
     })
 }
 
-//Search for Books
-app.get('/books', (req, res) => {
-  superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
-    const booksArray = data.body.items.map(book => new Book(book));
-    const books= booksArray.slice(0, 3);
-    res.render('books', { books });
-  }).catch(error => {
-    res.render('error', { error });
-  });
-});
+// //Search for Books
+// app.get('/results', (req, res) => {
+//   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
+//     const booksArray = data.body.items.map(book => new Book(book));
+//     const books = booksArray.slice(0, 3);
+//     res.render('results', { books });
+//   }).catch(error => {
+//     res.render('error', { error });
+//   });
+// });
 
 
 //Company Constructor
@@ -107,11 +107,11 @@ function Company(obj){
   this.image = obj.image;
 }
 
-app.get('/books', (req, res) => {
+app.get('/', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
     const booksArray = data.body.items.map(book => new Book(book));
     const books = booksArray.slice(0, 3);
-    res.render('books', { books });
+    res.render('index', { books });
   }).catch(error => {
     res.render('error', { error });
   });
@@ -121,7 +121,7 @@ app.get('/event', (req, res) => {
   console.log('data')
   superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=5DsQwPWqNz4zHmtM`).then(data => {
 
-  let parsedData= JSON.parse(data.text);
+    let parsedData= JSON.parse(data.text);
 
     // let events = data.events.event[0].title;
     // console.log('data afetr data', JSON.parse(data.text))
@@ -151,7 +151,6 @@ function Event(eventObj) {
   this.title = eventObj.title,
   this.city = eventObj.city_name,
   this.start_time = eventObj.start_time
-
 }
 
 

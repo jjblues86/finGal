@@ -37,4 +37,23 @@
     color: white;
     font-weight: bold;
     font-size: 1.2em;
+    width: 15em;
+}
+
+#inputSearch {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#dropDown {
+    margin: 20px 0;
+    width: 150px;
+    height: 40px;
+    color: grey;
+    font-size: 1em;
+    display: block;
+    margin-left: 330px;
 }

@@ -54,25 +54,18 @@ section > h2 {
 main > section > p {
     font-size: 1.2em;
     padding: 10px;
-    color: rgb(121, 114, 114)
-
-}
-
-#search-bar {
-    padding: 17px;
-    border-radius: 5px; 
-    margin: 10px 0;   
-    font-size: 1.2em;
+    color: rgb(121, 114, 114);
 }
 
 #search-button {
-    border-radius: 5px;
-    border: none;
-    padding: 15px;
-    width: 150px;
-    text-align: center;
-    background-color: salmon;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2em;
-}
+  border-radius: 5px;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  background-color: salmon;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 15em;
+}  
