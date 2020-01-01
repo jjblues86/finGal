@@ -28,6 +28,9 @@ ul#nav-bar li {
     display:inline;
     margin-right: 50px;
 }
+main > section {
+    text-align: center;
+}
 
 a {
     text-decoration: none;
@@ -42,11 +45,34 @@ footer {
 }
 
 section > h2 {
-    font-size: 2em;
+    font-size: 2.5em;
     color: rgb(104, 103, 103);
+    padding: 1em;
+
+}
+
+main > section > p {
+    font-size: 1.2em;
+    padding: 10px;
+    color: rgb(121, 114, 114)
 
 }
 
 #search-bar {
-    padding: 8px;
+    padding: 17px;
+    border-radius: 5px; 
+    margin: 10px 0;   
+    font-size: 1.2em;
+}
+
+#search-button {
+    border-radius: 5px;
+    border: none;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+    background-color: salmon;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
 }
