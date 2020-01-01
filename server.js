@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 require('dotenv').config();
 
@@ -43,7 +43,7 @@ function newSearch(request, response){
           const parseResult = JSON.parse(resultData.text);
           let parseResultProfile = parseResult.profile;
           let company = new Company(parseResultProfile)
-          response.render('searches/show', {company});
+          response.render('results', {company});
         })
         .catch(err => console.log(err));
     })
@@ -56,7 +56,7 @@ function newSearch(request, response){
       const parseResult = JSON.parse(resultData.text);
       let parseResultProfile = parseResult.profile;
       let company = new Company(parseResultProfile)
-      response.render('searches/show', {company});
+      response.render('results', {company});
     })
     .catch(err => console.log(err));
 }
