@@ -22,8 +22,12 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque, consequatur rerum beatae! Commodi nulla saepe possimus ipsam.</p>
 
             <form action="/results" method="POST">
-              <input id="search-bar" type="text" name="search" placeholder="Search Company...">
-              <input type="submit" value="Search" id="search-button">
+              <input type="text" name="search" placeholder="Search by Company name or Symbol">
+              <select name="search" required>
+                <option value="company">Company</option>
+                <option value="symbol">Symbol</option>
+              </select>
+              <button type="submit" value="Search">Search</button>
             </form>
             <hr class="style-one">
           </section>
@@ -50,12 +54,16 @@
           
             
           </section>
+          
+             
+
       </main>
       
 
         <%- include('../layout/footer') %>
       </div>
 
+ 
       </section>
 
 </body>
