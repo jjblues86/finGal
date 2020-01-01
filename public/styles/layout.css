@@ -1,8 +1,10 @@
 header {
     /* background-image: url("../images/background.png"); */
-    background-color: rgb(185, 30, 185);
-    background-size: 100%;
-    height: 170px;
+    background-color: rgba(54, 85, 185, 0.356);
+    grid-column: 1 / -1;
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
 }
 
 /* h1 aka logo */
@@ -12,16 +14,19 @@ header {
     font-weight: bolder;
     margin: 15px 15px;
     color: white;
+    display: inline;
 }
 
-nav {
-    margin-left: 15px;
+nav #nav-bar  {
+    margin: 30px -80px;
 }
-
+#company-image {
+    max-width: 250px;
+    max-height: 250px;
+}
 ul#nav-bar li {
     display:inline;
     margin-right: 50px;
-
 }
 
 a {
@@ -31,8 +36,7 @@ a {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-
 footer {
-    height: 150px;
-    background-color: orangered;
+    background-color: rgb(211, 200, 200);
+    grid-column: 1 / -1;
 }

@@ -3,25 +3,30 @@
 <%- include('../layout/head') %>
 
 <body>
-    <div class="container">
-        <header>
-            <h1 id="logo">Fin Gal</h1>
-            <nav>
-                <ul id="nav-bar">
-                    <li><a href="#">ABOUT US</a></li>
-                    <li><a href="#">SEARCH</a></li>
-                    <li><a href="#">MORE RESOURCES</a></li>
-                    <li><a href="#">PLAN AHEAD</a></li>
-                    <li><a href="#">CREATORS</a></li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-        
 
+    <div class="container">
+        <%- include('../layout/header') %>
+        <aside>
+
+        </aside>
+        <main>
+            <section id="search-result">
+            <img id="company-image" src=<%= company.image %>>
+            <h2><%=company.name%></h2>
+            <h2><%=company.symbol%></h2>
+            <h2><%=company.price%></h2>
+            <h3><%=company.ceo%></h3>
+            <p><%=company.sector%></p>
+            <p><%=company.description%></p> 
+        </section>
+            
+        <form action="">
+            <input type="submit" value="Add to Portfolio" id="add-button">
+        </form>
         </main>
-    </div>
-    <%- include('../layout/footer') %>
+      
+        <%- include('../layout/footer') %>
+      </div>
 </body>
 
 </html>
