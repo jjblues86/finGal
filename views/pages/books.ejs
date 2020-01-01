@@ -9,15 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-<% books.forEach((book) => { %>
-    <h2><%= book.authors %></h2>
-    <h2><%= book.title %></h2>
-<img src=<%= book.image_url %>>
-
-<p><a href="<%= book.link %>" role="button">learn more</a></p>
-
-<a href><%book.link %></a>
-<% }) %>
+    <section>
+        <% books.forEach((book) => { %>
+            <h2><%= book.title %></h2>
+            <h2><%= book.authors %></h2>
+        <img src=<%= book.image_url %>>
+        
+        <p><a href="<%= book.link %>" role="button">Get Smart...</a></p>
+        
+        <a href><%book.link %></a>
+        <% }) %>
+    </section>
 
 </body>
 </html>

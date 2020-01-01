@@ -28,10 +28,13 @@ ul#nav-bar li {
     display:inline;
     margin-right: 50px;
 }
+main > section {
+    text-align: center;
+}
 
 a {
     text-decoration: none;
-    color: white;
+    color: grey;
     font-size: 1.5em;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -40,3 +43,29 @@ footer {
     background-color: rgb(211, 200, 200);
     grid-column: 1 / -1;
 }
+
+section > h2 {
+    font-size: 2.5em;
+    color: rgb(104, 103, 103);
+    padding: 1em;
+
+}
+
+main > section > p {
+    font-size: 1.2em;
+    padding: 10px;
+    color: rgb(121, 114, 114);
+}
+
+#search-button {
+  border-radius: 5px;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  font-size: 16px;
+  background-color: salmon;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2em;
+  width: 15em;
+}  
