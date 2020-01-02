@@ -60,23 +60,58 @@
             <a id="backTop" href="">Back To Top</a>
           </section>
 
+      <section id="more-resources">
+        <h2>More Resources</h2>
 
-          <section id="creators">
-            <h2>Creators</h2>
-            <hr class="style-one">
-            <a href="#" class="creators"><img id="imgCreators" src="images/creators.jpg" alt="" /></a>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa facere.</p>
-          
-            <a id="backTop" href="">Back To Top</a>
-          </section>
-          
+        <section id="books-section">
 
-      </main>
-      
-        <%- include('../layout/footer') %>
-      </div>
+          <h2>Books</h2>
+          <div>
+            <% books.forEach((book) => { %>
+            <a href="<%= book.link %>"><img id="book-image" src=<%= book.image_url %>></a>
+            <h2 id="main-title"><%= book.title %></h2>
+            <h3 id="secondary-title"><%= book.authors %></h3>
+            <!-- <p><a id="book-link" href="<%= book.link %>" role="button">Get Smart...</a></p> -->
+            <% }) %>
+          </div>
+        </section>
+
+        <section id="events-section">
+          <h2>Events</h2>
+          <div>
+
+            <% events.forEach((event) => { %>
+              <img src="./images/meeting.jpg" alt="">
+              <h2 id="main-title"><%= event.title %></h2>
+              <h3 id="secondary-title"><%= event.city %></h3>
+              <p id="third-title"><h2><%= event.start_time %></h2></p>
+              <% }) %>
+    
+          </div>
+         
+        </section>
+        <!-- <hr class="style-one"> -->
+      </section>
+
+      <section id="plan-ahead">
+        <h2>Plan Ahead</h2>
+        <hr class="style-one">
 
       </section>
+      <section id="creators">
+        <h2>Creators</h2>
+        <a href="#" class="creators"><img src="images/creators.jpg" alt="" /></a>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam
+          magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa
+          facere.</p>
+
+        <a href="">Back To Top</a>
+      </section>
+    </main>
+    <%- include('../layout/footer') %>
+  </div>
+
+  </section>
 
       <script
       src="https://code.jquery.com/jquery-3.3.1.min.js"

@@ -50,16 +50,16 @@ function search(request, response){
   response.render('index')
 }
 
+
 //Search functionality for users to choose from company name/symbol
-function newSearch(request, response){
+function newSearch(request, response) {
 
   let searchStr = request.body.search[0];
   let searchType = request.body.search[1];
   let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
-
   if (searchType === 'company') {
     let companySearch = searchAlpha(searchStr);
-    companySearch.then( result => {
+    companySearch.then(result => {
 
       companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${result}`;
       superagent.get(companyURL)
@@ -69,28 +69,44 @@ function newSearch(request, response){
           let parseResultProfile = parseResult.profile;
           let company = new Company(parseResultProfile)
 
-          response.render('results', {company});
+          response.render('results', { company });
 
         })
         .catch(err => console.log(err));
     })
   }
-
-  console.log('BACON', companyURL);
   superagent.get(companyURL)
     .then(resultData => {
 
       const parseResult = JSON.parse(resultData.text);
       let parseResultProfile = parseResult.profile;
       let company = new Company(parseResultProfile)
+      // getStockNews(searchStr);
 
-      response.render('results', {company});
-    })
-    .catch(err => console.log(err));
+      getStockNews(searchStr).then(news => {
+        const newsArray = news.map(news => new News(news));
+        response.render('results', { newsArray, company });
+      });
+
+      // response.render('results', { newsArray });
+    }).catch(err => console.log(err));
+}
+
+// Get News from API using a ticker
+function getStockNews(ticker) {
+  let newsURL = `https://stocknewsapi.com/api/v1?tickers=${ticker}&items=5&token=${process.env.STOCK_NEWS_API}`;
+  return superagent.get(newsURL).then(data => {
+    // const newsArray = data.body.data.map(news => new News(news));
+    let newsObj = data.body.data;
+    // res.render('results', { newsArray });
+    return newsObj;
+  }).catch(error => {
+    console.error('error', error);
+  });
 }
 
 //logic to pull sticker information from the company name to send to the main API
-function searchAlpha(userKey){
+function searchAlpha(userKey) {
 
   return superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=${process.env.ALPHA_API_KEY}`).then(response => {
 
@@ -99,10 +115,9 @@ function searchAlpha(userKey){
     let symbolShare = stickerObject['1. symbol'];
 
     let nameShare = stickerObject['2. name'];
-    console.log('data to parse to next API', symbolShare, nameShare);
+    // console.log('data to parse to next API', symbolShare, nameShare);
 
     return symbolShare;
-
   })
     .catch(error => {
       console.error('catch on it ', error)
@@ -146,6 +161,7 @@ function companySaved(request, response){
     .catch(err => errorHandler(err));
 }
 
+
 //Delete from database
 function deleteCompany(request, response){
   client.query(`DELETE FROM companies WHERE id=$1`, [request.params.id])
@@ -177,6 +193,7 @@ function financeBooks(request, response){
   });
 }
 
+
 //Get finance events from events api
 function financeEvents(request, response){
   console.log('data')
@@ -191,6 +208,7 @@ function financeEvents(request, response){
     response.render('error', { error });
   });
 }
+
 
 //Company Constructor
 function Company(obj){
@@ -214,8 +232,17 @@ function Book(bookObj) {
 //Event constructor
 function Event(eventObj) {
   this.title = eventObj.title,
-  this.city = eventObj.city_name,
-  this.start_time = eventObj.start_time
+    this.city = eventObj.city_name,
+    this.start_time = eventObj.start_time
+}
+
+//News Constructor
+function News(newsObj) {
+  this.tickers = newsObj.tickers;
+  this.title = newsObj.title;
+  this.date = newsObj.date;
+  this.news_url = newsObj.news_url
+  this.imageUrl = newsObj.image_url;
 }
 
 

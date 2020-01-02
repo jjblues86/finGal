@@ -6,9 +6,17 @@
 
     <div class="container">
         <%- include('../layout/header') %>
-        <aside>
 
-        </aside>
+     <aside id="news">
+         <section>
+            <% newsArray.forEach((news) => { %>
+                <img id="news-image" src=<%= news.imageUrl %>>
+                <h2 id="news-title"><%= news.title %></h2>
+                <p><a id="news-link" href="<%= news.news_url %>">See more...</a></p>
+                <% }) %>
+         </section>
+     </aside>
+     
         <main>
             <h2>Your Search Result</h2>
             <section id="search-result">
@@ -20,9 +28,9 @@
             </form>  
           </section>
         </main>
-      
+
         <%- include('../layout/footer') %>
-      </div>
+    </div>
 </body>
 
 </html>
