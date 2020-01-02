@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const superagent = require('superagent');
+const pg = require('pg');
 
 const PORT = process.env.PORT || 3002;
 
@@ -19,7 +20,9 @@ app.set('views', './views/pages')
 app.get('/', search);
 app.post('/results', newSearch);
 
-
+const client = new pg.Client(process.env.DATABASE_URL);
+client.on('error', (e) => console.error(e));
+client.connect();
 
 function search(request, response) {
   response.render('index')
@@ -158,5 +161,41 @@ function errorHandler(request, response){
   if(response) response.status(500).render('error');
 
 }
+
+////DATABASE porfolio output 
+
+app.get('/portfolio', (req, res) => {
+  const instruction = 'SELECT * FROM company;';
+  client.query(instruction).then(function (sqlData) {
+    console.log(sqlData.rows);
+    const companyArray = sqlData.rows;
+    companyArray.length > 0 ? res.render('portfolio', { companyArray }) : res.render('error');
+    console.log('portfolio', companyArray);
+  });
+});
+
+//database insert 
+
+
+
+
+
+
+// database  deletion 
+
+
+// id SERIAL PRIMARY KEY,
+// companyName VARCHAR(255),
+// symbol VARCHAR(255),
+// price Decimal(19,2),
+// sector VARCHAR(255),
+// ceo VARCHAR(255),
+// companyDescription VARCHAR(255),
+// companyImage VARCHAR(255)
+// );
+
+
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
