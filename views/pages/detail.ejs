@@ -1,0 +1,15 @@
+<img id="company-image" src=<%= company.image %>>
+<h2><%=company.name%></h2>
+<h2><%=company.price%></h2>
+<h3><%=company.ceo%></h3>
+<p><%=company.sector%></p>
+<p><%=company.description%></p> 
+<form action="/save" method="POST">
+  <input type="hidden" value="<%=company.name%>" name="name">
+  <input type="hidden" value="<%=company.price%>" name="price">
+  <input type="hidden" value="<%=company.sector%>" name="sector">
+  <input type="hidden" value="<%=company.ceo%>" name="ceo">
+  <input type="hidden" value="<%=company.description%>" name="description">
+  <input type="hidden" value="<%=company.image%>" name="image">
+
+

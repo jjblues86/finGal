@@ -5,43 +5,60 @@
 <body>
   <div class="container">
     <%- include('../layout/header') %>
+
     <aside>
 
     </aside>
-    <main>
-      <div id="mainImage">
-        <img id="imagefour" src="images/main-bg.jpg" alt="">
 
-      </div>
+      <main>
+        
+        <div>
+          <img id="imageFour" src="images/women2.jpg" alt="">
 
-      <section id="about-us">
-        <h2>About Us</h2>
+        </div>
 
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum, ad, aut incidunt delectus nam cumque cum
-          voluptates, culpa quos reprehenderit assumenda labore! Consectetur excepturi similique, iste laudantium eum
-          eos aliquid?</p>
+        <section id="about-us">
+          <h2>About Us</h2>
+          <hr class="style-one">
 
-        <hr class="style-one">
-      </section>
+          <p>At Fin Gal, we believe that investing is important at all stages of life, whether you are a student or an established career woman. Our mission is to provide all women with the tools to reach their future financial needs. With a simple to use platform, company stock information, books and local finance events are at your fingertips. </p>
 
-      <section id="search-company">
-        <h2>Search For A Company</h2>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit,
-          sit neque cumque ut nam totam adipisci doloremque, consequatur rerum beatae! Commodi nulla saepe possimus
-          ipsam.</p>
+          <a id="backTop" href="">Back To Top</a>
+          </section>
 
-        <form action="/results" method="POST">
-          <input type="text" name="search" placeholder="Search By Company Name Or Symbol" id="inputSearch">
-          <select id="dropDown" name="search" required>
-            <option value="company">Company</option>
-            <option value="symbol">Symbol</option>
-          </select>
-          <button id="search-button" type="submit" value="Search">Search</button>
-        </form>
+          <section id="search-company">
+            <h2>Search For A Company</h2>
+            <hr class="style-one">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque.</p>
 
-        <hr class="style-one">
-      </section>
+            <form action="/results" method="POST">
+              <input type="text" name="search" placeholder="Search By Company Name Or Symbol" id="inputSearch" required>
+              <select id="dropDown" name="search" required>
+                <option value="company">Company</option>
+                <option value="symbol">Symbol</option>
+              </select>
+              <button id="search-button" type="submit" value="Search">Search</button>
+            </form>
 
+            <a id="backTop" href="">Back To Top</a>
+          </section>
+          
+
+          <section id="more-resources">
+            <h2>More Resources</h2>
+            <hr class="style-one">
+            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repella Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+
+            <a id="backTop" href="">Back To Top</a>
+        </section>        
+
+          <section id="plan-ahead">
+            <h2 id="plan-ahead">Plan Ahead</h2>
+            <hr class="style-one">
+            <p id="plan-ahead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa facere</p>
+
+            <a id="backTop" href="">Back To Top</a>
+          </section>
 
       <section id="more-resources">
         <h2>More Resources</h2>
@@ -94,9 +111,13 @@
     <%- include('../layout/footer') %>
   </div>
 
-
   </section>
 
+      <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+      <script src="/js/app.js"></script>
 </body>
 
 </html>
