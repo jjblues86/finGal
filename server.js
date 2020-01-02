@@ -36,6 +36,7 @@ client.on('error', err => console.error(err));
 app.get('/', search);
 app.post('/save', saveCompany);
 app.post('/results', newSearch);
+// app.get('/portfolio', companySaved);
 
 
 //Search from index page
@@ -127,12 +128,34 @@ function saveCompany(request, response){
         .then(savedResults => {
           console.log('save 3', savedResults)
 
-          response.render('portfolio', {company: savedResults.rows[0].id});
+          response.render('portfolio', {companyArray: savedResults.rows});
         })
         .catch(err => errorHandler(err));
     })
     .catch(err => errorHandler(err));
 }
+
+app.get('/portfolio', (req, res) => {
+  const instruction = 'SELECT * FROM companies;';
+  client.query(instruction).then(function (sqlData) {
+    console.log(sqlData.rows);
+    const companyArray = sqlData.rows;
+    companyArray.length > 0 ? res.render('portfolio', { companyArray }) : res.render('error');
+    console.log('portfolio', companyArray);
+  });
+});
+
+//Saved Companies
+// function companySaved(request, response){
+//   const select = `SELECT * FROM companies`;
+//   return client.query(select)
+//     .then(data => {
+//       const savedData = data.rows;
+//       console.log('saved 4', savedData);
+//       response.render('portfolio', {company: savedData});
+//     })
+//     .catch(err => errorHandler(err));
+// }
 
 app.get('/books', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {

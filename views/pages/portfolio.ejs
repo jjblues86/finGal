@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../layout/head') %>
-
 <body>
-    <div class="container">
-        <%- include('../layout/header') %>
-        <main>
-            <h2>Your Saved Result</h2>
-            <section id="search-result">
-           
-                    <%- include('detail.ejs', {company: company}) %>          
-            </form>  
-          </section>
-        </main>
-        <%- include('../layout/footer') %>
-    </div>
+  <div class="container">
+    <%- include('../layout/header') %>
+    <main>
+      <% companyArray.forEach(company => { %>
+      <% if (company.image) { %>
+      <img src="<%= company.image %>" />
+      <% } %>
+      <h2><%= company.name %> </h2>
+      <h3><%= company.description %> </h3>
+      <h4><%= company.price %> </h4>
+      <h3><%= company.sector %> </h3>
+      <p><%= company.ceo %> </p>
+      <% }) %>
+    </main>
+    <%- include('../layout/footer') %>
+  </div>
 </body>
-
 </html>
