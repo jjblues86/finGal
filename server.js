@@ -37,6 +37,9 @@ app.get('/', search);
 app.get('/books', financeBooks);
 app.get('/events', financeEvents);
 app.get('/portfolio', companySaved);
+// app.get('/newUseraaa', (req, res) => {
+//   res.send({id:300,cool:'dude'});
+// })
 app.delete('/portfolio/:id', deleteCompany);
 app.post('/save', saveCompany);
 app.post('/results', newSearch);
@@ -152,6 +155,16 @@ function deleteCompany(request, response){
     })
     .catch(err => errorHandler(err));
 }
+
+//Saving a single user data
+// function userSaved(request, response){
+//   const select = `SELECCT * FROM companies WHERE user_id=$1`;
+//   return client.query(select)
+//   .then(data => {
+//     const savedUser = data.rows;
+//     response.render('portfolio', {companyArray: savedUser})
+//   })
+// }
 
 //Get finance books from google api
 function financeBooks(request, response){

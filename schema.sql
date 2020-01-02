@@ -3,6 +3,9 @@
 
 -- Push db to heroku
 -- heroku pg:push FinGal DATABASE_URL --app fin-gal
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY
+);
 
 CREATE TABLE companies (
   id SERIAL PRIMARY KEY,
@@ -11,5 +14,8 @@ CREATE TABLE companies (
   sector VARCHAR(255),
   ceo VARCHAR(255),
   description VARCHAR(255),
-  image VARCHAR(255)
+  image VARCHAR(255),
+  user_id INT,
+  FOREIGN KEY(user_id) REFERENCES users(id)
 );
+

@@ -16,6 +16,7 @@
       <p><%= company.ceo %> </p>
       <form action="/portfolio/<%=company.id%>" method="POST">
       <input type="hidden" name="_method" value="DELETE">
+      <!-- <input id="userId" type="hidden" value=""> -->
       <button type="submit">Remove from Portfolio</button>
     </form>
       <% }) %>
