@@ -3,13 +3,22 @@
 <%- include('../layout/head') %>
 
 <body>
-    <div class="container">
-        <%- include('../layout/header') %>
-        <main>
-            
-        </main>
-        <%- include('../layout/footer') %>
-    </div>
+  <div class="container">
+    <%- include('../layout/header') %>
+    <main>
+      <% companyArray.forEach(company => { %>
+      <% if (company.companyimage) { %>
+      <img src="<%= company.companyimage %>" />
+      <% } %>
+      <h2><%= company.companyname %> </h2>
+      <h3><%= company.companydescription %> </h3>
+      <h4><%= company.price %> </h4>
+      <h3><%= company.sector %> </h3>
+      <p><%= company.ceo %> </p>
+      <% }) %>
+    </main>
+    <%- include('../layout/footer') %>
+  </div>
 </body>
 
 </html>
