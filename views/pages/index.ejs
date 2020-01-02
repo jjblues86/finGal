@@ -32,12 +32,11 @@
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque.</p>
 
             <form action="/results" method="POST">
-              <input type="text" name="search" placeholder="Search By Company Name Or Symbol" id="inputSearch">
-
-              <input type="radio" name="search-company" value="company" id="radio">Company<br>
-              <input type="radio" name="search-symbol" value="symbol" id="radio">Symbol<br>
-
-
+              <input type="text" name="search" placeholder="Search By Company Name Or Symbol" id="inputSearch" required>
+              <select id="dropDown" name="search" required>
+                <option value="company">Company</option>
+                <option value="symbol">Symbol</option>
+              </select>
               <button id="search-button" type="submit" value="Search">Search</button>
             </form>
 
