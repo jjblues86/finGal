@@ -4,6 +4,10 @@ const app = express();
 const superagent = require('superagent');
 const pg = require('pg');
 
+
+const methodOverride = require('method-override');
+
+
 const PORT = process.env.PORT || 3002;
 
 require('dotenv').config();
@@ -12,19 +16,39 @@ require('dotenv').config();
 app.use(express.static('./public'));
 
 //Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
+app.use(methodOverride((req, res) => {
+  if(req.body && typeof req.body === 'object' && '_method' in req.body) {
+    console.log(req.body['_method']);
+    let method = req.body['_method'];
+    delete req.body['_method'];
+    return method; //returns PUT, PATCH, POST, GET, or DELETE.
+  }
+}))
+
+//Templating Engines
 app.set('view engine', 'ejs');
 app.set('views', './views/pages')
+
+//Database setup
+const client = new pg.Client(process.env.DATABASE_URL)
+client.connect()
+client.on('error', err => console.error(err));
 
 //Routes
 app.get('/', search);
 app.post('/results', newSearch);
 
+
 const client = new pg.Client(process.env.DATABASE_URL);
 client.on('error', (e) => console.error(e));
 client.connect();
 
-function search(request, response) {
+
+
+//Search from index page
+function search(request, response){
+
   response.render('index')
 }
 
@@ -70,7 +94,7 @@ function newSearch(request, response){
 //logic to pull sticker information from the company name to send to the main API
 function searchAlpha(userKey){
 
-  return superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=7R6ONK4007JF3LU7`).then(response => {
+  return superagent.get(`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${userKey}&apikey=${process.env.ALPHA_API_KEY}`).then(response => {
 
     let stickerObject = response.body.bestMatches[0];
 
@@ -87,27 +111,23 @@ function searchAlpha(userKey){
     })
 }
 
-// //Search for Books
-// app.get('/results', (req, res) => {
-//   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
-//     const booksArray = data.body.items.map(book => new Book(book));
-//     const books = booksArray.slice(0, 3);
-//     res.render('results', { books });
-//   }).catch(error => {
-//     res.render('error', { error });
-//   });
-// });
+//Save Companies
+function saveCompany(request, response){
+  let SQL = `INSERT INTO companies
+  (name, symbol, price, sector, ceo, description, image)
+    VALUES($1,$2,$3,$4,$5,$6,$7)`;
+  let values = (SQL, [request.body.name, request.body.symbol, request.body.price, request.body.sector, request.body.ceo, request.body.description, request.body.image]);
 
+  return client.query(SQL, values)
+  .then(savedResults => {
+    let SQL = `SELECT id FROM companies WHERE ceo=$1`;
+    let values = [request.body.ceo];
 
-//Company Constructor
-function Company(obj){
-  this.name = obj.companyName;
-  this.symbol = obj.symbol;
-  this.price = obj.price;
-  this.sector = obj.sector;
-  this.ceo = obj.ceo;
-  this.description = obj.description;
-  this.image = obj.image;
+    return client.query(SQL, values)
+    .then(savedResults => {
+      response.redirect(`/`)
+    })
+  })
 }
 
 app.get('/', (req, res) => {
@@ -139,6 +159,17 @@ app.get('/event', (req, res) => {
     res.render('error', { error });
   });
 });
+
+//Company Constructor
+function Company(obj){
+  this.name = obj.companyName;
+  this.symbol = obj.symbol;
+  this.price = obj.price;
+  this.sector = obj.sector;
+  this.ceo = obj.ceo;
+  this.description = obj.description;
+  this.image = obj.image;
+}
 
 
 //Book Constructor
