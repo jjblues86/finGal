@@ -14,11 +14,11 @@ app.use(express.static('./public'));
 
 //Middleware
 app.use(express.urlencoded({extended: true}));
-app.use(methodOverride((req, res) => {
-  if(req.body && typeof req.body === 'object' && '_method' in req.body) {
-    console.log(req.body['_method']);
-    let method = req.body['_method'];
-    delete req.body['_method'];
+app.use(methodOverride((request, response) => {
+  if(request.body && typeof request.body === 'object' && '_method' in request.body) {
+    console.log(request.body['_method']);
+    let method = request.body['_method'];
+    delete request.body['_method'];
     return method; //returns PUT, PATCH, POST, GET, or DELETE.
   }
 }))
@@ -34,6 +34,7 @@ client.on('error', err => console.error(err));
 
 //Routes
 app.get('/', search);
+app.post('/save', saveCompany);
 app.post('/results', newSearch);
 
 
@@ -103,28 +104,38 @@ function searchAlpha(userKey){
 
 //Save Companies
 function saveCompany(request, response){
+
+  // let savedCompany = new DbCompany(request.body);
+  // console.log('saving', savedCompany)
+  // let outcome = Object.values(savedCompany);
+
+  //adds to database
   let SQL = `INSERT INTO companies
-  (name, symbol, price, sector, ceo, description, image)
-    VALUES($1,$2,$3,$4,$5,$6,$7)`;
-  let values = (SQL, [request.body.name, request.body.symbol, request.body.price, request.body.sector, request.body.ceo, request.body.description, request.body.image]);
+  (name, price, sector, ceo, description, image)
+    VALUES($1,$2,$3,$4,$5,$6,$7)
+    RETURNING id`;
+  console.log('sql', SQL)
 
-  return client.query(SQL, values)
-  .then(savedResults => {
-    let SQL = `SELECT id FROM companies WHERE ceo=$1`;
-    let values = [request.body.ceo];
-
-    return client.query(SQL, values)
+  //this should redirect to the portfolio page
+  return client.query(SQL)
     .then(savedResults => {
-      response.redirect(`/`)
+      console.log('save 2', savedResults)
+
+      const select = `SELECT * FROM companies`;
+      return client.query(select)
+        .then(savedResults => {
+          response.render('pages/portfolio', {company: savedResults.rows});
+        })
+        .catch(err => errorHandler(err));
     })
-  })
+    .catch(err => errorHandler(err));
 }
 
-app.get('/', (req, res) => {
+app.get('/books', (req, res) => {
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
     const booksArray = data.body.items.map(book => new Book(book));
     const books = booksArray.slice(0, 3);
-    res.render('index', { books });
+    res.render('books', { books });
   }).catch(error => {
     res.render('error', { error });
   });
@@ -160,6 +171,16 @@ function Company(obj){
   this.description = obj.description;
   this.image = obj.image;
 }
+
+// function DbCompany(obj){
+//   this.name = obj.name;
+//   this.symbol = obj.symbol;
+//   this.price = obj.price;
+//   this.sector = obj.sector;
+//   this.ceo = obj.ceo;
+//   this.description = obj.description;
+//   this.image = obj.image;
+// }
 
 
 //Book Constructor
