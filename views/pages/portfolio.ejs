@@ -6,13 +6,10 @@
     <div class="container">
         <%- include('../layout/header') %>
         <main>
-            <h2>Your Search Result</h2>
+            <h2>Your Saved Result</h2>
             <section id="search-result">
            
-                    <%- include('detail.ejs', {company: company}) %>
-        
-                    <input type="submit" value="Add to Portfolio" id="add-button">
-                
+                    <%- include('detail.ejs', {company: company}) %>          
             </form>  
           </section>
         </main>

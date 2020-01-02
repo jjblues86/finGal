@@ -112,19 +112,22 @@ function saveCompany(request, response){
   //adds to database
   let SQL = `INSERT INTO companies
   (name, price, sector, ceo, description, image)
-    VALUES($1,$2,$3,$4,$5,$6,$7)
+    VALUES($1,$2,$3,$4,$5,$6)
     RETURNING id`;
-  console.log('sql', SQL)
+  let values = (SQL, [request.body.name, request.body.price, request.body.sector, request.body.ceo, request.body.description, request.body.image]);
+
+  console.log('sql', values)
 
   //this should redirect to the portfolio page
-  return client.query(SQL)
+  return client.query(SQL, values)
     .then(savedResults => {
       console.log('save 2', savedResults)
-
       const select = `SELECT * FROM companies`;
       return client.query(select)
         .then(savedResults => {
-          response.render('pages/portfolio', {company: savedResults.rows});
+          console.log('save 3', savedResults)
+
+          response.render('portfolio', {company: savedResults.rows[0].id});
         })
         .catch(err => errorHandler(err));
     })
@@ -143,7 +146,7 @@ app.get('/books', (req, res) => {
 
 app.get('/event', (req, res) => {
   console.log('data')
-  superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=5DsQwPWqNz4zHmtM`).then(data => {
+  superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=${process.env.EVENTS_API_KEY}`).then(data => {
 
     let parsedData= JSON.parse(data.text);
 
