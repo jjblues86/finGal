@@ -6,37 +6,35 @@
 
     <div class="container">
         <%- include('../layout/header') %>
-        <aside id="stock-news">
-            <section>
-                <% newsArray.forEach((news) => { %>
-                  <img id="company-image" src=<%= news.imageUrl %>>
-                  <h2><%= news.title %></h2>
-            
-                  
-                  <a href="<%= news.news_url %>">see more</a>
-              <% }) %>
-                
-            
-              </section>
-        </aside>
+
+     <aside id="news">
+         <section>
+            <% newsArray.forEach((news) => { %>
+                <img id="news-image" src=<%= news.imageUrl %>>
+                <h2 id="news-title"><%= news.title %></h2>
+                <p><a id="news-link" href="<%= news.news_url %>">See more...</a></p>
+                <% }) %>
+         </section>
+     </aside>
+     
         <main>
             <section id="search-result">
-            <img id="company-image" src=<%= company.image %>>
-            <h2><%=company.name%></h2>
-            <h2><%=company.symbol%></h2>
-            <h2><%=company.price%></h2>
-            <h3><%=company.ceo%></h3>
-            <p><%=company.sector%></p>
-            <p><%=company.description%></p> 
-        </section>
-            
-        <form id=resultsSearch action="">
-            <input type="submit" value="Add to Portfolio" id="add-button">
-        </form>
+                <img id="company-image" src=<%= company.image %>>
+                <h2><%=company.name%></h2>
+                <h2><%=company.symbol%></h2>
+                <h2><%=company.price%></h2>
+                <h3><%=company.ceo%></h3>
+                <p><%=company.sector%></p>
+                <p><%=company.description%></p>
+            </section>
+
+            <form id=resultsSearch action="">
+                <input type="submit" value="Add to Portfolio" id="add-button">
+            </form>
         </main>
-      
+
         <%- include('../layout/footer') %>
-      </div>
+    </div>
 </body>
 
 </html>

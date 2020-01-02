@@ -9,12 +9,17 @@
     <title>Document</title>
 </head>
 <body>
-<% events.forEach((event) => { %>
-    <h2><%= event.title %></h2>
-    <h2><%= event.city %></h2>
+    <section>
+        <% events.forEach((event) => { %>
+            <%= <img src="../../public/images/meeting.jpg" alt=""> %>
+            <h2><%= event.title %></h2>
+            <h2><%= event.city %></h2>
+        
+            <h2><%= event.start_time %></h2>
+        <% }) %>
 
-    <h2><%= event.start_time %></h2>
-<% }) %>
+    </section>
+
 
 </body>
 </html>
