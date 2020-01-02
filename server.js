@@ -31,7 +31,6 @@ function newSearch(request, response){
   let searchStr = request.body.search[0];
   let searchType = request.body.search[1];
   let companyURL = `https://financialmodelingprep.com/api/v3/company/profile/${searchStr}`;
-
   if (searchType === 'company') {
     let companySearch = searchAlpha(searchStr);
     companySearch.then( result => {
@@ -50,18 +49,42 @@ function newSearch(request, response){
         .catch(err => console.log(err));
     })
   }
-
-  console.log('BACON', companyURL);
   superagent.get(companyURL)
     .then(resultData => {
 
       const parseResult = JSON.parse(resultData.text);
       let parseResultProfile = parseResult.profile;
       let company = new Company(parseResultProfile)
-
+      // getStockNews(searchStr);
       response.render('results', {company});
-    })
-    .catch(err => console.log(err));
+    }).catch(err => console.log(err));
+
+    getStockNews(searchStr).then(news => {
+    const newsArray = news.map(news => new News(news));
+    response.render('results', { newsArray });
+    });
+    // console.log('222222222222222', getStockNews(searchStr).then(news => {
+    //   const newsArray = news.body.data.map(news => new News(news));
+    //   console.log('kkkkkkkkkkkk',news.body);
+    //   response.render('results', { newsArray });
+    // }));
+  // getStockNews(searchStr).then(news => {
+  //   // const newsArray = news.body.data.map(news => new News(news));
+  //   // console.log('kkkkkkkkkkkk',news.body);
+  // });
+}
+
+// Get News from API using a ticker
+function getStockNews(ticker) {
+  let newsURL = `https://stocknewsapi.com/api/v1?tickers=${ticker}&items=5&token=${process.env.STOCK_NEWS_API}`;
+  return superagent.get(newsURL).then( data => {
+    // const newsArray = data.body.data.map(news => new News(news));
+    let newsObj = data.body.data;
+    // res.render('results', { newsArray });
+    return newsObj;
+  }).catch(error => {
+    console.err('error', error);
+  });
 }
 
 //logic to pull sticker information from the company name to send to the main API
@@ -77,6 +100,7 @@ function searchAlpha(userKey){
     console.log('data to parse to next API', symbolShare, nameShare);
 
     return symbolShare;
+
 
   })
     .catch(error => {
@@ -118,14 +142,13 @@ app.get('/', (req, res) => {
 });
 
 app.get('/event', (req, res) => {
-  console.log('data')
   superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=5DsQwPWqNz4zHmtM`).then(data => {
 
     let parsedData= JSON.parse(data.text);
-
     // let events = data.events.event[0].title;
     // console.log('data afetr data', JSON.parse(data.text))
     const eventsArray = parsedData.events.event.map(event => new Event(event));
+
     const events = eventsArray.slice(0, 3);
     // console.log('event', events)
     res.render('event', { events });
@@ -136,6 +159,16 @@ app.get('/event', (req, res) => {
     res.render('error', { error });
   });
 });
+
+// app.get('/results', (req, res) => {
+//   superagent.get(`https://stocknewsapi.com/api/v1?tickers=FB&items=5&token=${process.env.STOCK_NEWS_API}`).then( data => {
+
+//     const newsArray = data.body.data.map(news => new News(news));
+//     console.log(newsArray)
+
+//     res.render('results', { newsArray });
+//   })
+// });
 
 
 //Book Constructor
@@ -153,6 +186,14 @@ function Event(eventObj) {
   this.start_time = eventObj.start_time
 }
 
+// News Constructor
+function News(newsObj) {
+  this.tickers = newsObj.tickers;
+  this.title = newsObj.title;
+  this.date = newsObj.date;
+  this.news_url = newsObj.news_url
+  this.imageUrl = newsObj.image_url;
+}
 
 function errorHandler(request, response){
   if(response) response.status(500).render('error');

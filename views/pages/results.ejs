@@ -6,8 +6,18 @@
 
     <div class="container">
         <%- include('../layout/header') %>
-        <aside>
-
+        <aside id="stock-news">
+            <section>
+                <% newsArray.forEach((news) => { %>
+                  <img id="company-image" src=<%= news.imageUrl %>>
+                  <h2><%= news.title %></h2>
+            
+                  
+                  <a href="<%= news.news_url %>">see more</a>
+              <% }) %>
+                
+            
+              </section>
         </aside>
         <main>
             <section id="search-result">
