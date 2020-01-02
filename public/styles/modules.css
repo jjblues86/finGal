@@ -9,7 +9,7 @@
 
 #search-result > h2 {
     font-size: 2em;
-    padding: 2px;
+    /* padding: 5px; */
     font-weight: bold;
 }
 
@@ -33,11 +33,12 @@
     padding: 15px 32px;
     text-align: center;
     font-size: 16px;
-    background-color: salmon;
+    background-color: brown;
     color: white;
     font-weight: bold;
     font-size: 1.2em;
     width: 15em;
+    margin-left: 20em;
 }
 
 #inputSearch {
@@ -48,14 +49,23 @@
     text-align: center;
 }
 
-#dropDown {
-    align-self: center;
-    margin: 20px 0;
-    width: 150px;
-    height: 40px;
-    color: grey;
-    font-size: 1em;
-    display: block;
+#search-company {
+    background-color: whitesmoke;
+    /* grid-column-start: span 3; */
+
 }
 
-/* margin-left: 330px; */
+#plan-ahead {
+    background-color:rgb(178, 180, 206);
+    color: white;
+    width: 100%;
+    /* display: grid;
+    grid-column: 1 / -1; */
+}
+
+
+#footer {
+    color: white;
+    font-size: .6em;
+    margin-top: .5em;
+}
