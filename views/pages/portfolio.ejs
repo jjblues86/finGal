@@ -14,6 +14,10 @@
       <h4><%= company.price %> </h4>
       <h3><%= company.sector %> </h3>
       <p><%= company.ceo %> </p>
+      <form action="/portfolio/<%=company.id%>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">Remove from Portfolio</button>
+    </form>
       <% }) %>
     </main>
     <%- include('../layout/footer') %>
