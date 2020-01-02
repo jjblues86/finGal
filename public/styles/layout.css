@@ -2,7 +2,7 @@ header {
     /* background-image: url("../images/background.png"); */
     background-color: rgba(54, 85, 185, 0.356);
     grid-column: 1 / -1;
-    padding: 15px;
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 2fr;
 }
@@ -10,26 +10,29 @@ header {
 /* h1 aka logo */
 #logo {
     font-family: 'Cinzel', serif;
-    font-size: 6em;
+    font-size: 4.5em;
     font-weight: bolder;
-    margin: 15px 15px;
+    margin: 15px 10px;
     color: white;
     display: inline;
 }
 
 nav #nav-bar  {
-    margin: 30px -80px;
+    margin: 30px 15px;
 }
 
 ul#nav-bar li {
     display:inline;
-    margin-right: 2.5em;
+    margin-right: 5em;
+    font-size: .7em;
+    letter-spacing: 1px;
 }
 
 #company-image {
     max-width: 250px;
     max-height: 250px;
 }
+
 main > section {
     text-align: center;
     padding-bottom: 2em;

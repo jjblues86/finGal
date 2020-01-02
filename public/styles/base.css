@@ -12,6 +12,15 @@
 } 
 
 
+.container2 {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows:  110px auto  110px;
+    min-height: 100vh;
+    margin-top: 1em;
+}
+
+
 hr.style-one {
     margin-top: 5px;
     border: 0;
