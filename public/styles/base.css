@@ -5,13 +5,19 @@
 
 .container {
     display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 100%;
-    grid-gap: 5px;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows:  110px auto  110px;
+    min-height: 100vh;
 } 
 
-main {
-    height: 600px;
-    background-color: rgb(211, 200, 200);
-}
 
+hr.style-one {
+    margin-top: 50px;
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+#mainImage {
+    grid-column: 1 / -1;
+}
