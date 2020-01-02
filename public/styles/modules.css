@@ -49,11 +49,13 @@
 }
 
 #dropDown {
+    align-self: center;
     margin: 20px 0;
     width: 150px;
     height: 40px;
     color: grey;
     font-size: 1em;
     display: block;
-    margin-left: 330px;
 }
+
+/* margin-left: 330px; */
