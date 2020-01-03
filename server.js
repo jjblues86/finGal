@@ -5,7 +5,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3003;
 
 require('dotenv').config();
 
@@ -200,8 +200,9 @@ function Event(eventObj) {
   this.start_time = eventObj.start_time
 }
 
-function errorHandler(request, response){
-  if(response) response.status(500).render('error');
+function errorHandler(error){
+  console.error(error);
+  // if(response) response.status(500).render('error');
 }
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

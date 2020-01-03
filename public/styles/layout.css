@@ -191,10 +191,12 @@ main > section > p {
     font-size: 1.2em;
 }
 
-#radio {
-    height: 17px;
-    border-radius: 50px;
-    margin-top: 30px;
-    margin-bottom: 5px;
+#dropDown {
+    width: 100px;
+    height: 40px;
+    display: block;
+    margin-left: 32em;
+    margin-top: 2em;
+    /* box-shadow: brown; */
+    
 }
-
