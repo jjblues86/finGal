@@ -5,7 +5,8 @@ const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override');
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3013;
+
 
 require('dotenv').config();
 
@@ -144,16 +145,6 @@ function deleteCompany(request, response){
     })
     .catch(err => errorHandler(err));
 }
-
-//Saving a single user data
-// function userSaved(request, response){
-//   const select = `SELECCT * FROM companies WHERE user_id=$1`;
-//   return client.query(select)
-//   .then(data => {
-//     const savedUser = data.rows;
-//     response.render('portfolio', {companyArray: savedUser})
-//   })
-// }
 
 function booksEvents(request, response){
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
