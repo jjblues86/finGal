@@ -68,7 +68,7 @@ footer {
 }
 
 #footerLogo {
-    font-size: 1.5em;
+    font-size: 2em;
     color: white;
     text-align: center;
     /* justify-content: center; */
@@ -76,7 +76,7 @@ footer {
 }
 
 ul#footerNav li {
-    font-size: .5em;
+    font-size: 0.6em;
     padding-right: 1em;
     display: inline;
     /* grid-column-start: span 3; */
@@ -84,6 +84,7 @@ ul#footerNav li {
 }
 #footer {
     text-align: center;
+    padding: 4em;
 }
 
 
