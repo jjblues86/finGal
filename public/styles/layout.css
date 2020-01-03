@@ -1,5 +1,4 @@
 header {
-    /* background-image: url("../images/background.png"); */
     background-color: rgba(54, 85, 185, 0.356);
     grid-column: 1 / -1;
     padding: 10px;
@@ -27,6 +26,7 @@ ul#nav-bar li {
     font-size: .7em;
     letter-spacing: 1px;
 }
+
 
 #company-image {
     max-width: 250px;
@@ -64,14 +64,12 @@ footer {
     padding: 20px;
     display: grid;
     justify-content: center;
-    /* grid-template-columns: 1.8fr 2fr; */
 }
 
 #footerLogo {
     font-size: 1.5em;
     color: white;
     text-align: center;
-    /* justify-content: center; */
        
 }
 
@@ -79,7 +77,6 @@ ul#footerNav li {
     font-size: .5em;
     padding-right: 1em;
     display: inline;
-    /* grid-column-start: span 3; */
    
 }
 #footer {
@@ -91,7 +88,6 @@ section > h2 {
     font-size: 2.5em;
     color: rgb(104, 103, 103);
     margin-top: 2em;
-    
 }
 
 main > section > p {
@@ -122,13 +118,11 @@ main > section > p {
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 1fr;
     grid-template-rows: 50px;
-    grid-gap: 50px;
     background-color: rgb(238, 236, 236);
-    padding: 20px;
+    
 }
 
 #more-resources > h2 {
-
     grid-column: 1 / -1;    
     font-size: 2.5em;
 }
@@ -137,11 +131,16 @@ main > section > p {
     grid-column: 3;
 }
 
+#h2moreResources {
+    margin-top: 25px;
+}
+
 #books-section {
     grid-column: 2;
     display: grid;
     grid-template-columns: 4fr;
     grid-template-rows: 4fr;
+
 }
 #news {
 
@@ -155,10 +154,10 @@ main > section > p {
 }
 
 
-
 #secondary-title {
     font-size: 1.1em;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 #third-title {
@@ -191,12 +190,48 @@ main > section > p {
     font-size: 1.2em;
 }
 
+
 #dropDown {
     width: 100px;
     height: 40px;
     display: block;
     margin-left: 32em;
     margin-top: 2em;
-    /* box-shadow: brown; */
-    
+    background-color: white;
+    /* box-shadow: brown; */ 
 }
+
+
+#stock-image {
+    max-width: 200px;
+    min-width: 200px;
+    margin-top: 2.3em;
+}
+
+#stock-name {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#stockCard {
+    text-align: center;
+    margin: 20px;
+    padding: 10px;
+    float: left;
+}
+
+#stock-description {
+    padding: 10px 70px;
+}
+
+#stockButton {
+    margin-top: 30px;
+    width: 120px;
+    height: 40px;  
+    background-color: brown;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+

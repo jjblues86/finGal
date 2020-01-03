@@ -43,7 +43,6 @@ app.post('/results', newSearch);
 // })
 
 
-
 //Search functionality for users to choose from company name/symbol
 function newSearch(request, response) {
 

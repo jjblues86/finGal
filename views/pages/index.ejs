@@ -10,50 +10,53 @@
 
     </aside>
 
-      <main>
-        
-        <div>
-          <img id="imageFour" src="images/women2.jpg" alt="">
+    <main>
 
-        </div>
+      <div>
+        <img id="imageFour" src="images/women2.jpg" alt="">
 
-        <section id="about-us">
-          <h2>About Us</h2>
-          <hr class="style-one">
+      </div>
 
-          <p>At Fin Gal, we believe that investing is important at all stages of life, whether you are a student or an established career woman. Our mission is to provide all women with the tools to reach their future financial needs. With a simple to use platform, company stock information, books and local finance events are at your fingertips. </p>
+      <section id="about-us">
+        <h2>About Us</h2>
+        <hr class="style-one">
 
-          <a id="backTop" href="">Back To Top</a>
-          </section>
+        <p>At Fin Gal, we believe that investing is important at all stages of life, whether you are a student or an
+          established career woman. Our mission is to provide all women with the tools to reach their future financial
+          needs. With a simple to use platform, company stock information, books and local finance events are at your
+          fingertips. </p>
 
-          <section id="search-company">
-            
-            <h2>Search For A Company</h2>
-            <hr class="style-one">
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste nihil voluptas voluptates pariatur impedit, sit neque cumque ut nam totam adipisci doloremque.</p>
+        <a id="backTop" href="">Back To Top</a>
+      </section>
 
-            <form action="/results" method="POST">
-              <input type="text" name="search" placeholder="Search By Company Name Or Symbol" id="inputSearch" required>
-              <select id="dropDown" name="search" required>
-                <option value="company">Company</option>
-                <option value="symbol">Symbol</option>
-              </select>
-              <button id="search-button" type="submit" value="Search">Search</button>
-            </form>
+      <section id="search-company">
 
-            <a id="backTop" href="">Back To Top</a>
-          </section>
+        <h2>Search For A Company</h2>
+        <hr class="style-one">
+        <p>Investing is not just for those with discretionary money, Fin Gal is here to tell you that everyone earning money should be investing, but we understand that investing can be intimidating so before you take the plunge go ahead and do your research. We are her for you!</p>
 
-          <section id="plan-ahead">
-            <h2 id="plan-ahead">Plan Ahead</h2>
-            <hr class="style-one">
-            <a href="https://goodcalculators.com/stock-calculator/"><img src="images/calculator.jpg" alt=""></a>
+          <form action="/results" method="POST">
+            <input type="text" id="inputSearch"  name="search" placeholder="Search By Company Name Or Symbol" required>
+            <select id="dropDown" name="search" required>
+              <option value="company">Company</option>
+              <option value="symbol">Symbol</option>
+            </select>
+          <button id="search-button" type="submit" value="Search">Search</button>
+        </form>
 
-            <a id="backTop" href="">Back To Top</a>
-          </section>
+        <a id="backTop" href="">Back To Top</a>
+      </section>
+
+      <section id="plan-ahead">
+        <h2 id="plan-ahead">Plan Ahead</h2>
+        <hr class="style-one">
+        <a id="calculator" href="https://goodcalculators.com/stock-calculator/"><img src="images/calculator.jpg" alt=""></a>
+
+        <a id="backTop" href="">Back To Top</a>
+      </section>
 
       <section id="more-resources">
-        <h2>More Resources</h2>
+        <h2 id="h2moreResources">More Resources</h2>
 
         <section id="books-section">
 
@@ -63,7 +66,6 @@
             <a href="<%= book.link %>"><img id="book-image" src=<%= book.image_url %>></a>
             <h2 id="main-title"><%= book.title %></h2>
             <h3 id="secondary-title"><%= book.authors %></h3>
-            <!-- <p><a id="book-link" href="<%= book.link %>" role="button">Get Smart...</a></p> -->
             <% }) %>
           </div>
         </section>
@@ -71,27 +73,23 @@
         <section id="events-section">
           <h2>Events</h2>
           <div>
-
             <% events.forEach((event) => { %>
-              <img src="./images/meeting.jpg" alt="">
-              <h2 id="main-title"><%= event.title %></h2>
-              <h3 id="secondary-title"><%= event.city %></h3>
-              <p id="third-title"><h2><%= event.start_time %></h2></p>
-              <% }) %>
-    
+            <img src="./images/meeting.jpg" alt="">
+            <h2 id="main-title"><%= event.title %></h2>
+            <h3 id="secondary-title"><%= event.city %></h3>
+            <p id="third-title">
+              <h2><%= event.start_time %></h2>
+            </p>
+            <% }) %>
           </div>
-         
         </section>
-        <!-- <hr class="style-one"> -->
+    
       </section>
       <section id="creators">
         <h2>Creators</h2>
+        <hr class="style-one">
         <a href="#" class="creators"><img src="images/creators.jpg" alt="" /></a>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta ipsum quas praesentium eius eveniet quibusdam
-          magnam fugiat iure harum accusantium, expedita atque quidem nostrum aperiam nihil placeat officiis ipsa
-          facere.</p>
-
-        <a href="">Back To Top</a>
+        <p>Meet the creators of Fin Gal; Jerome, Martin, Sergey and Annie.</p>
       </section>
     </main>
     <%- include('../layout/footer') %>
@@ -99,11 +97,9 @@
 
   </section>
 
-      <script
-      src="https://code.jquery.com/jquery-3.3.1.min.js"
-      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-      crossorigin="anonymous"></script>
-      <script src="/js/app.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/js/app.js"></script>
 </body>
 
 </html>
