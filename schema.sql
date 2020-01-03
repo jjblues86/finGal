@@ -12,7 +12,7 @@ CREATE TABLE users (
 CREATE TABLE companies (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255),
-  price FLOAT,
+  price DECIMAL(13,2),
   sector VARCHAR(255),
   ceo VARCHAR(255),
   description VARCHAR(255),
