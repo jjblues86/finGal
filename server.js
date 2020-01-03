@@ -5,7 +5,7 @@ const superagent = require('superagent');
 const pg = require('pg');
 const methodOverride = require('method-override');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3013;
 
 require('dotenv').config();
 
