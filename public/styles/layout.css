@@ -2,7 +2,7 @@ header {
     /* background-image: url("../images/background.png"); */
     background-color: rgba(54, 85, 185, 0.356);
     grid-column: 1 / -1;
-    padding: 15px;
+    padding: 10px;
     display: grid;
     grid-template-columns: 1fr 2fr;
 }
@@ -10,50 +10,96 @@ header {
 /* h1 aka logo */
 #logo {
     font-family: 'Cinzel', serif;
-    font-size: 6em;
+    font-size: 4.5em;
     font-weight: bolder;
-    margin: 15px 15px;
+    margin: 15px 10px;
     color: white;
     display: inline;
 }
 
 nav #nav-bar  {
-    margin: 30px -80px;
+    margin: 30px 15px;
 }
+
+ul#nav-bar li {
+    display:inline;
+    margin-right: 5em;
+    font-size: .7em;
+    letter-spacing: 1px;
+}
+
 #company-image {
     max-width: 250px;
     max-height: 250px;
 }
-ul#nav-bar li {
-    display:inline;
-    margin-right: 50px;
-}
+
 main > section {
     text-align: center;
+    padding-bottom: 2em;
 }
 
 a {
     text-decoration: none;
-    color: grey;
+    color: white;
     font-size: 1.5em;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+a:hover {
+    color:rgb(158, 98, 98);
+}
+
+#backTop {
+    color: saddlebrown;
+    font-size: 1em;
+}
+
+#backTop:hover {
+    color: lightblue;
 }
 
 footer {
     background-color: rgb(211, 200, 200);
     grid-column: 1 / -1;
+    padding: 20px;
+    display: grid;
+    justify-content: center;
+    /* grid-template-columns: 1.8fr 2fr; */
 }
+
+#footerLogo {
+    font-size: 1.5em;
+    color: white;
+    text-align: center;
+    /* justify-content: center; */
+       
+}
+
+ul#footerNav li {
+    font-size: .5em;
+    padding-right: 1em;
+    display: inline;
+    /* grid-column-start: span 3; */
+   
+}
+#footer {
+    text-align: center;
+}
+
 
 section > h2 {
     font-size: 2.5em;
     color: rgb(104, 103, 103);
-    padding: 1em;
-
+    margin-top: 2em;
+    
 }
 
 main > section > p {
-    font-size: 1.2em;
-    padding: 10px;
+    font-size: 1.6em;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    padding: 25px;
+    margin-bottom: 2em;
     color: rgb(121, 114, 114);
 }
 
@@ -63,9 +109,92 @@ main > section > p {
   padding: 15px 32px;
   text-align: center;
   font-size: 16px;
-  background-color: salmon;
+  background-color: brown;
   color: white;
   font-weight: bold;
   font-size: 1.2em;
   width: 15em;
+  margin-top: 1em;
+  margin-bottom: 2em;
 }  
+
+#more-resources {
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 1fr;
+    grid-template-rows: 50px;
+    grid-gap: 50px;
+    background-color: rgb(238, 236, 236);
+    padding: 20px;
+}
+
+#more-resources > h2 {
+
+    grid-column: 1 / -1;    
+    font-size: 2.5em;
+}
+
+#events-section {
+    grid-column: 3;
+}
+
+#books-section {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: 4fr;
+    grid-template-rows: 4fr;
+}
+#news {
+
+    margin-right: 150px;
+
+}
+#main-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px;
+}
+
+
+
+#secondary-title {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+#third-title {
+    margin-bottom: 10px;
+}
+#book-image {
+    max-width: 150px;
+    max-height: 200px;
+}
+
+#book-link {
+    font-size: 1.2em;
+    color: black;
+
+}
+
+#news-image {
+    max-width: 250px;
+    max-height: 250px;
+    margin: 10px 80px 10px;
+    
+}
+#news-title {
+    font-size: 1.2em;
+}
+
+#news-link {
+    display: block;
+    margin-left: 20px;
+    font-size: 1.2em;
+}
+
+#radio {
+    height: 17px;
+    border-radius: 50px;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+

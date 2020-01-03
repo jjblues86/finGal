@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('../layout/head') %>
-
 <body>
   <div class="container">
     <%- include('../layout/header') %>
     <main>
       <% companyArray.forEach(company => { %>
+<<<<<<< HEAD
       <% if (company.companyimage) { %>
       <img src="<%= company.companyimage %>" />
       <% } %>
@@ -15,10 +15,24 @@
       <h4><%= company.price %> </h4>
       <h3><%= company.sector %> </h3>
       <p><%= company.ceo %> </p>
+=======
+      <% if (company.image) { %>
+      <img src="<%= company.image %>" />
+      <% } %>
+      <h2><%= company.name %> </h2>
+      <h3><%= company.description %> </h3>
+      <h4><%= company.price %> </h4>
+      <h3><%= company.sector %> </h3>
+      <p><%= company.ceo %> </p>
+      <form action="/portfolio/<%=company.id%>" method="POST">
+      <input type="hidden" name="_method" value="DELETE">
+      <!-- <input id="userId" type="hidden" value=""> -->
+      <button type="submit">Remove from Portfolio</button>
+    </form>
+>>>>>>> c6a336dad20c8936ed19b775d0e451dd9629a191
       <% }) %>
     </main>
     <%- include('../layout/footer') %>
   </div>
 </body>
-
 </html>

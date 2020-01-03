@@ -6,27 +6,20 @@
 
     <div class="container">
         <%- include('../layout/header') %>
-        <aside>
-
-        </aside>
         <main>
+            <h2>Your Search Result</h2>
             <section id="search-result">
-            <img id="company-image" src=<%= company.image %>>
-            <h2><%=company.name%></h2>
-            <h2><%=company.symbol%></h2>
-            <h2><%=company.price%></h2>
-            <h3><%=company.ceo%></h3>
-            <p><%=company.sector%></p>
-            <p><%=company.description%></p> 
-        </section>
-            
-        <form id=resultsSearch action="">
-            <input type="submit" value="Add to Portfolio" id="add-button">
-        </form>
+           
+                    <%- include('detail.ejs', {company: company}) %>
+        
+                    <input type="submit" value="Add to Portfolio" id="add-button">
+                
+            </form>  
+          </section>
         </main>
-      
+
         <%- include('../layout/footer') %>
-      </div>
+    </div>
 </body>
 
 </html>
