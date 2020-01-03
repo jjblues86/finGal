@@ -7,7 +7,8 @@
 - Providing valuable financial information for young women in investing in a simple and straightforward approach.
 
 ## Database Schemas
-CREATE TABLE users (
+```
+- CREATE TABLE users (
   id SERIAL PRIMARY KEY
 );
 
@@ -22,6 +23,7 @@ CREATE TABLE companies (
   user_id INT,
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
+```
 
 # Group Members
 - Jerome Joof
