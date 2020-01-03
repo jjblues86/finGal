@@ -141,12 +141,10 @@ main > section > p {
     display: grid;
     grid-template-columns: 4fr;
     grid-template-rows: 4fr;
-
 }
+
 #news {
-
     margin-right: 150px;
-
 }
 #main-title {
     font-size: 1.2em;

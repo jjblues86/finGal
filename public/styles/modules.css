@@ -51,13 +51,14 @@
 
 #search-company {
     background-color: whitesmoke;
-    margin: 0;
 }
 
 #plan-ahead {
     background-color:rgb(178, 180, 206);
     color: white;
     width: 100%;
+    margin-bottom: 3em;
+    border:solid 1px rgb(178, 180, 206);
 }
 
 
