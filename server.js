@@ -33,22 +33,15 @@ client.connect()
 client.on('error', err => console.error(err));
 
 //Routes
-app.get('/', search);
-app.get('/books', financeBooks);
-app.get('/events', financeEvents);
 app.get('/portfolio', companySaved);
-// app.get('/newUseraaa', (req, res) => {
-//   res.send({id:300,cool:'dude'});
-// })
+app.get('/', booksEvents);
 app.delete('/portfolio/:id', deleteCompany);
 app.post('/save', saveCompany);
 app.post('/results', newSearch);
+// app.get('/newUseraaa', (req, res) => {
+//   res.send({id:300,cool:'dude'});
+// })
 
-
-//Search from index page
-function search(request, response){
-  response.render('index')
-}
 
 
 //Search functionality for users to choose from company name/symbol
@@ -81,28 +74,9 @@ function newSearch(request, response) {
       const parseResult = JSON.parse(resultData.text);
       let parseResultProfile = parseResult.profile;
       let company = new Company(parseResultProfile)
-      // getStockNews(searchStr);
+      response.render('results', {company });
 
-      getStockNews(searchStr).then(news => {
-        const newsArray = news.map(news => new News(news));
-        response.render('results', { newsArray, company });
-      });
-
-      // response.render('results', { newsArray });
     }).catch(err => console.log(err));
-}
-
-// Get News from API using a ticker
-function getStockNews(ticker) {
-  let newsURL = `https://stocknewsapi.com/api/v1?tickers=${ticker}&items=5&token=${process.env.STOCK_NEWS_API}`;
-  return superagent.get(newsURL).then(data => {
-    // const newsArray = data.body.data.map(news => new News(news));
-    let newsObj = data.body.data;
-    // res.render('results', { newsArray });
-    return newsObj;
-  }).catch(error => {
-    console.error('error', error);
-  });
 }
 
 //logic to pull sticker information from the company name to send to the main API
@@ -182,30 +156,20 @@ function deleteCompany(request, response){
 //   })
 // }
 
-//Get finance books from google api
-function financeBooks(request, response){
+function booksEvents(request, response){
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
     const booksArray = data.body.items.map(book => new Book(book));
     const books = booksArray.slice(0, 3);
-    response.render('books', { books });
-  }).catch(error => {
-    response.render('error', { error });
-  });
-}
-
-
-//Get finance events from events api
-function financeEvents(request, response){
-  console.log('data')
-  superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=${process.env.EVENTS_API_KEY}`).then(data => {
-
-    let parsedData= JSON.parse(data.text);
-    const eventsArray = parsedData.events.event.map(event => new Event(event));
-    const events = eventsArray.slice(0, 3);
-    response.render('event', { events });
-  }).catch(error => {
-    console.log(error)
-    response.render('error', { error });
+    superagent.get(`http://api.eventful.com/json/events/search?q=investing&where=Seattle&within=25&app_key=${process.env.EVENTS_API_KEY}`).then(data => {
+      let parsedData = JSON.parse(data.text);
+      // let events = data.events.event[0].title;
+      // console.log('data afetr data', JSON.parse(data.text))
+      const eventsArray = parsedData.events.event.map(event => new Event(event));
+      const events = eventsArray.slice(0, 3);
+      response.render('index', { books, events });
+    }).catch(error => {
+      response.render('error', { error });
+    });
   });
 }
 
@@ -232,19 +196,9 @@ function Book(bookObj) {
 //Event constructor
 function Event(eventObj) {
   this.title = eventObj.title,
-    this.city = eventObj.city_name,
-    this.start_time = eventObj.start_time
+  this.city = eventObj.city_name,
+  this.start_time = eventObj.start_time
 }
-
-//News Constructor
-function News(newsObj) {
-  this.tickers = newsObj.tickers;
-  this.title = newsObj.title;
-  this.date = newsObj.date;
-  this.news_url = newsObj.news_url
-  this.imageUrl = newsObj.image_url;
-}
-
 
 function errorHandler(request, response){
   if(response) response.status(500).render('error');
