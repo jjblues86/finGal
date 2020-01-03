@@ -10,6 +10,13 @@
 - https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords
 - https://financialmodelingprep.com/api/v3/company/profile
 
+## Versioning
+1.0.0. Initial version that outputs company stock details by searching either by company name or stock ticker.
+
+## How to Use
+FinGal can be accessed at [fin-gal.herokuapp.com](https://fin-gal.herokuapp.com/). On initial page reload, the user must search by a company name or symbol. This will render on a result page the output of your search result for a particular company. The user can add a company's stock information they are interested in to their portfolio, and the user also has the ability to delete any stored information from their portfolio as well.
+
+
 ## Libraries, Frameworks & Packages
 - Express
 - PostgreSQL
