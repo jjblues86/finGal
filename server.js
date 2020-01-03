@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 
 const PORT = process.env.PORT || 3013;
 
+
 require('dotenv').config();
 
 
@@ -41,7 +42,6 @@ app.post('/results', newSearch);
 // app.get('/newUseraaa', (req, res) => {
 //   res.send({id:300,cool:'dude'});
 // })
-
 
 
 //Search functionality for users to choose from company name/symbol
@@ -146,16 +146,6 @@ function deleteCompany(request, response){
     .catch(err => errorHandler(err));
 }
 
-//Saving a single user data
-// function userSaved(request, response){
-//   const select = `SELECCT * FROM companies WHERE user_id=$1`;
-//   return client.query(select)
-//   .then(data => {
-//     const savedUser = data.rows;
-//     response.render('portfolio', {companyArray: savedUser})
-//   })
-// }
-
 function booksEvents(request, response){
   superagent.get(`https://www.googleapis.com/books/v1/volumes?q=finance`).then(data => {
     const booksArray = data.body.items.map(book => new Book(book));
@@ -200,8 +190,9 @@ function Event(eventObj) {
   this.start_time = eventObj.start_time
 }
 
-function errorHandler(request, response){
-  if(response) response.status(500).render('error');
+function errorHandler(error){
+  console.error(error);
+  // if(response) response.status(500).render('error');
 }
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

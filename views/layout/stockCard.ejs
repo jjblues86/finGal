@@ -1,0 +1,13 @@
+<section>
+    <% companyArray.forEach(company => { %>
+        <% if (company.image) { %>
+        <img src="<%= company.image %>" />
+        <% } %>
+        <h2><%= company.name %> </h2>
+        <h3><%= company.description %> </h3>
+        <h4><%= company.price %> </h4>
+        <h3><%= company.sector %> </h3>
+        <p><%= company.ceo %> </p>
+</section>
+
+  

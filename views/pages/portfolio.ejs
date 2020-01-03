@@ -2,24 +2,36 @@
 <html lang="en">
 <%- include('../layout/head') %>
 <body>
-  <div class="container">
-    <%- include('../layout/header') %>
+  <div class="container2">
+    <%- include('../layout/header2') %>
+    
+        <aside>
+          
+        </aside>
+
     <main>
-      <% companyArray.forEach(company => { %>
-      <% if (company.image) { %>
-      <img src="<%= company.image %>" />
-      <% } %>
-      <h2><%= company.name %> </h2>
-      <h3><%= company.description %> </h3>
-      <h4><%= company.price %> </h4>
-      <h3><%= company.sector %> </h3>
-      <p><%= company.ceo %> </p>
-      <form action="/portfolio/<%=company.id%>" method="POST">
-      <input type="hidden" name="_method" value="DELETE">
-      <!-- <input id="userId" type="hidden" value=""> -->
-      <button type="submit">Remove from Portfolio</button>
-    </form>
-      <% }) %>
+      
+      <article id="stockCard">
+        <% companyArray.forEach(company => { %>
+        <% if (company.image) { %>
+          <img id="stock-image" src="<%= company.image %>" />
+          <% } %>
+          <h2 id="stock-name"><%= company.name %> </h2>
+          <p id="stock-description"><%= company.description %> </p>
+          <h4><%= company.price %> </h4>
+          <h3><%= company.sector %> </h3>
+          <p><%= company.ceo %> </p>
+          <form action="/portfolio/<%=company.id%>" method="POST">
+          <input type="hidden" name="_method" value="DELETE">
+          <!-- <input id="userId" type="hidden" value=""> -->
+          <button  id="stockButton" type="submit">Remove from Portfolio</button>
+        </form>
+          <% }) %>
+      </article>
+
+
+
+    
     </main>
     <%- include('../layout/footer') %>
   </div>
